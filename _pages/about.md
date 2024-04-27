@@ -32,7 +32,7 @@ When I am staying at home. I enjoy Sci-fi movie and Hiphop music.
 
 ### Internships
 
-- Applied Scientist Intern, Amazon Web Service  
+- **Applied Scientist Intern**, Amazon Web Service  
   Vancouver, Sept 2023 - Jan 2024
 
 ## Activities
