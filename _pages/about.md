@@ -8,7 +8,8 @@ profile:
   align: right
   image: me.png
   image_circular: true # crops the image to make it circular
-  more_info: 
+  more_info: >
+    <p>📍 Edmonton, Canada</p>
 
 social: true
 selected_papers: true
