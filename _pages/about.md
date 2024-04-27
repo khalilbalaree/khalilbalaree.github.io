@@ -22,3 +22,16 @@ profile:
 
 - Natural Language Processing
 - Machine Learning
+
+### Internships
+
+- Applied Scientist Intern, Amazon Web Service  
+  Vancouver, Sept 2023 - Jan 2024
+
+## Activities
+
+- Research Assistant, University of Alberta, 2020 - Present
+- Teaching Assistant, University of Alberta, 2020 - Present  
+  - CMPUT 175: Foundations of Computation  
+  - CMPUT 301: Software Engineering  
+  - CMPUT 466: Machine Learning
