@@ -19,24 +19,24 @@ I am a second-year PhD student at University of Alberta, and supervised by Prof.
 
 My research interest includes NLP and ML. Specifically, I am interested in the explainablility of the representations that can be understood by either machine learning models or human. I am also interested in the communication and interaction between different large language models.
 
-### About Me
+### about Me
 I am an outdoor enthusiast. I like snowboarding and skiing in winter, and mountain biking and hiking in summer.
 
 When I am staying at home. I enjoy Sci-fi movie and Hiphop music.
 
-### Education
+### education
 
 - **PhD in Computing Science** - University of Alberta, 2022 - Present
 - **MSc in Computing Science** - University of Alberta, 2020 - 2022
 - **BSc in Computing Science** - University of Alberta, 2016 - 2020
 
 
-### Internships
+### internships
 
 - **Applied Scientist Intern**, Amazon Web Service  
   Vancouver, Sept 2023 - Jan 2024
 
-## Activities
+## activities
 
 - Research Assistant, University of Alberta, 2020 - Present
 - Teaching Assistant, University of Alberta, 2020 - Present  
