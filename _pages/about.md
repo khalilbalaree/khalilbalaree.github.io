@@ -17,7 +17,7 @@ selected_papers: true
 
 I am a second-year PhD student at University of Alberta, and supervised by Prof. [Lili Mou](https://lili-mou.github.io/). Before this, I received my bachelor and master's degrees at University of Alberta.
 
-My research interest includes NLP and ML. I am interested in the explainablility of the representations that can be understood by either machine learning models or human. I am also interested in the communication and interaction between different large language models.
+My research interest includes NLP and ML. Specifically, I am interested in the explainablility of the representations that can be understood by either machine learning models or human. I am also interested in the communication and interaction between different large language models.
 
 ### About Me
 I am an outdoor enthusiast. I like snowboarding and skiing in winter, and mountain biking and hiking in summer.
