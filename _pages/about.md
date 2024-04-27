@@ -11,6 +11,7 @@ profile:
   more_info: 
 
 social: true
+selected_papers: true
 
 ---
 
@@ -19,7 +20,7 @@ I am a second-year PhD student at University of Alberta, and supervised by Prof.
 My research interest includes NLP and ML. I am interested in the explainablility of the representations that can be understood by either machine learning models or human. I am also interested in the communication and interaction between different large language models.
 
 ### About Me
-I am a outdoor enthusiast. I like snowboarding and skiing in winter, and mountain biking and hiking in summer.
+I am an outdoor enthusiast. I like snowboarding and skiing in winter, and mountain biking and hiking in summer.
 
 When I am staying at home. I enjoy Sci-fi movie and Hiphop music.
 
