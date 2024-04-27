@@ -10,6 +10,8 @@ profile:
   image_circular: true # crops the image to make it circular
   more_info: 
 
+social: true
+
 ---
 
 I am a second-year PhD student at University of Alberta, and supervised by Prof. [Lili Mou](https://lili-mou.github.io/). Before this, I received my bachelor and master's degrees at University of Alberta.
@@ -19,7 +21,7 @@ My research interest includes NLP and ML. I am interested in the explainablility
 ### About Me
 I am a outdoor enthusiast. I like snowboarding and skiing in winter, and mountain biking and hiking in summer.
 
-When I am staying at home. I enjoy Sci-fi Movie and Hiphop music.
+When I am staying at home. I enjoy Sci-fi movie and Hiphop music.
 
 ### Education
 
