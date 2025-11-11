@@ -39,12 +39,8 @@ My research interests lie in **Natural Language Processing** and **Machine Learn
 
 ## Experience
 
-### Internships
-
 **Applied Scientist Intern** | AWS AI Lab, Vancouver
 *September 2023 - January 2024*
-
-### Academic Roles
 
 **Research Assistant** | University of Alberta
 *2020 - Present*

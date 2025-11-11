@@ -1054,20 +1054,15 @@ nav[data-toggle="toc"] {
     top: 0;
   }
 
-  /* Fix publication thumbnails on mobile */
-  .publications ol.bibliography li .row {
-    flex-direction: column !important;
-  }
-
+  /* Hide publication thumbnails on mobile */
   .publications ol.bibliography li .abbr {
-    max-width: 100% !important;
-    margin-bottom: 1rem;
-    height: auto !important;
+    display: none !important;
   }
 
-  .publications ol.bibliography li .preview {
-    max-width: 150px;
-    margin: 0 auto;
+  /* Make publication content full width on mobile */
+  .publications ol.bibliography li [class*="col-sm-"] {
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
   }
 }
 
