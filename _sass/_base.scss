@@ -1053,6 +1053,22 @@ nav[data-toggle="toc"] {
     height: 0;
     top: 0;
   }
+
+  /* Fix publication thumbnails on mobile */
+  .publications ol.bibliography li .row {
+    flex-direction: column !important;
+  }
+
+  .publications ol.bibliography li .abbr {
+    max-width: 100% !important;
+    margin-bottom: 1rem;
+    height: auto !important;
+  }
+
+  .publications ol.bibliography li .preview {
+    max-width: 150px;
+    margin: 0 auto;
+  }
 }
 
 .featured-posts {
