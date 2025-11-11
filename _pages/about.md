@@ -49,6 +49,6 @@ When I am staying at home. I enjoy sci-fi movie and hip-hop music.
 
 ---
 
-<div class="visitor-map" style="text-align: center; margin-top: 2rem;">
+<div class="visitor-map" style="text-align: center; margin-top: 2rem; max-width: 200px; margin-left: auto; margin-right: auto;">
   <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=pT5ffV6zRD8LChVq-nLu7BVYNeSuIDOqNzDbF5uTPQU&cl=ffffff&w=a"></script>
 </div>
