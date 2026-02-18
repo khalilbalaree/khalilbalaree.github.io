@@ -16,11 +16,12 @@ selected_papers: false
 
 ## About Me
 
-I am a third-year PhD student at the University of Alberta, supervised by Prof. [Lili Mou](https://lili-mou.github.io/). I received both my bachelor's and master's degrees from the University of Alberta.
+I am a PhD student at the University of Alberta, supervised by Prof. [Lili Mou](https://lili-mou.github.io/). I received both my BSc and MSc in Computing Science from the University of Alberta.
 
-My research interests lie in **Natural Language Processing** and **Machine Learning**. Specifically, I focus on:
-- The interpretation of representations understandable by both machine learning models and humans
-- Communication and interaction between different large language models
+My research lies at the intersection of **Natural Language Processing** and **Machine Learning**, with a focus on:
+- Interpretable representations that bridge machine learning models and human understanding
+- Embedding learning for large language models
+- Multi-agent communication and interaction among large language models
 
 ---
 
@@ -58,7 +59,7 @@ My research interests lie in **Natural Language Processing** and **Machine Learn
 
 ## Beyond Research
 
-I am an outdoor enthusiast who loves snowboarding and skiing in winter, and mountain biking and hiking in summer. When staying indoors, I enjoy sci-fi movies and hip-hop music.
+I am an outdoor enthusiast who loves snowboarding and skiing in winter, and mountain biking and hiking in summer. When staying indoors, I enjoy sci-fi movies and hip-hop music. I also have a British Shorthair cat named UA (short for University of Alberta).
 
 ---
 
