@@ -681,8 +681,9 @@ footer.sticky-bottom {
         width: 100%;
         min-width: 80px;
         max-width: 200px;
-        max-height: 200px;
+        max-height: 160px;
         object-fit: contain;
+        object-position: top;
       }
 
       .abbr {
