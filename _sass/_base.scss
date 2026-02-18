@@ -681,11 +681,12 @@ footer.sticky-bottom {
         figure {
           margin: 0;
 
-          img.preview {
-            max-height: 160px;
-            width: 100%;
+          picture img {
+            max-height: 160px !important;
+            height: auto !important;
+            width: auto !important;
+            max-width: 100%;
             object-fit: contain;
-            object-position: top;
           }
         }
       }
@@ -694,9 +695,6 @@ footer.sticky-bottom {
         width: 100%;
         min-width: 80px;
         max-width: 200px;
-        max-height: 160px;
-        object-fit: contain;
-        object-position: top;
       }
 
       .abbr {
