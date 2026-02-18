@@ -39,6 +39,9 @@ My research interests lie in **Natural Language Processing** and **Machine Learn
 
 ## Experience
 
+**Machine Learning Researcher Intern** | Borealis AI
+*January 2026 - May 2026*
+
 **Applied Scientist Intern** | AWS AI Lab, Vancouver
 *September 2023 - January 2024*
 
