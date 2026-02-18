@@ -677,20 +677,6 @@ footer.sticky-bottom {
     li {
       margin-bottom: 2.5rem;
 
-      .abbr {
-        figure {
-          margin: 0;
-
-          picture img {
-            max-height: 160px !important;
-            height: auto !important;
-            width: auto !important;
-            max-width: 100%;
-            object-fit: contain;
-          }
-        }
-      }
-
       .preview {
         width: 100%;
         min-width: 80px;
