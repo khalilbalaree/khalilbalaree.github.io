@@ -6,8 +6,7 @@ subtitle:
 
 profile:
   align: right
-  more_info: >
-    <p>📍 Edmonton, Canada</p>
+  more_info:
 
 social: true
 selected_papers: false
