@@ -15,7 +15,7 @@ selected_papers: false
 
 ## About Me
 
-I am a PhD student at the University of Alberta, supervised by Prof. [Lili Mou](https://lili-mou.github.io/). I received both my BSc and MSc in Computing Science from the University of Alberta.
+I am a PhD candidate at the University of Alberta, supervised by Prof. [Lili Mou](https://lili-mou.github.io/). I received both my BSc and MSc in Computing Science from the University of Alberta.
 
 My research lies at the intersection of **Natural Language Processing** and **Machine Learning**, with a focus on:
 - Interpretable representations that bridge machine learning models and human understanding
@@ -39,17 +39,15 @@ My research lies at the intersection of **Natural Language Processing** and **Ma
 
 ## Experience
 
-**Machine Learning Researcher Intern** | Borealis AI
-*January 2026 - May 2026*
+**Machine Learning Researcher Intern** | RBC Borealis AI, Vancouver
+*2026*
 
 **Applied Scientist Intern** | AWS AI Lab, Vancouver
-*September 2023 - January 2024*
+*2023 - 2024*
 
 **Research Assistant** | University of Alberta
-*2020 - Present*
 
 **Teaching Assistant** | University of Alberta
-*2020 - Present*
 - CMPUT 175: Foundations of Computation
 - CMPUT 301: Software Engineering
 - CMPUT 466: Machine Learning
