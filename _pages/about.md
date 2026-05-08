@@ -45,8 +45,6 @@ My research lies at the intersection of **Natural Language Processing** and **Ma
 **Applied Scientist Intern** | AWS AI Lab, Vancouver
 *2023 - 2024*
 
-**Research Assistant** | University of Alberta
-
 **Teaching Assistant** | University of Alberta
 - CMPUT 175: Foundations of Computation
 - CMPUT 301: Software Engineering
