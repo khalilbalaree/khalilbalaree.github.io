@@ -21,7 +21,7 @@ selected_papers: false
   <p>My research lies at the intersection of <strong>Natural Language Processing</strong> and <strong>Machine Learning</strong>, with a focus on:</p>
   <ul class="focus-list">
     <li>Interpretable representations that bridge machine learning models and human understanding</li>
-    <li>Embedding learning for large language models</li>
+    <li>Embedding learning for efficient context in large language models</li>
     <li>Multi-agent communication and interaction among large language models</li>
   </ul>
 </section>
@@ -66,9 +66,9 @@ selected_papers: false
     <div class="timeline-item">
       <div class="ti-header">
         <span class="ti-title">Applied Scientist Intern</span>
-        <span class="ti-date">2023 – 2024</span>
+        <span class="ti-date">2024</span>
       </div>
-      <div class="ti-place">AWS AI Lab, Vancouver</div>
+      <div class="ti-place">Amazon Web Services, Vancouver</div>
     </div>
     <div class="timeline-item">
       <div class="ti-header">
@@ -86,7 +86,7 @@ selected_papers: false
 
 <section class="about-section">
   <h2 class="section-heading">Beyond Research</h2>
-  <p class="beyond">I am an outdoor enthusiast who loves snowboarding and skiing in winter, and mountain biking and hiking in summer. When staying indoors, I enjoy sci-fi movies and hip-hop music. I also have a British Shorthair cat named UA (short for University of Alberta).</p>
+  <p class="beyond">I am an outdoor enthusiast who loves snowboarding and skiing in winter, mountain biking and hiking in summer, and traveling year-round. When staying indoors, I enjoy sci-fi movies and hip-hop music. I have a British Shorthair cat named UA (short for University of Alberta).</p>
 </section>
 
 </div>
