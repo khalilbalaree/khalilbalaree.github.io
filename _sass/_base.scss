@@ -1063,6 +1063,107 @@ nav[data-toggle="toc"] {
   .publications ol.bibliography li [class*="col-sm-"] {
     max-width: 100% !important;
     flex: 0 0 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .publications {
+    margin-top: 1.25rem;
+
+    h2.bibliography {
+      margin: 2rem 0 0.9rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--global-divider-color);
+      text-align: left;
+      color: var(--global-text-color-light);
+      font-size: 1.65rem;
+      font-weight: 700;
+      line-height: 1;
+      opacity: 1;
+
+      span {
+        display: inline-flex;
+        align-items: center;
+        min-height: 1.8rem;
+        padding: 0.3rem 0.65rem;
+        border: 1px solid var(--global-divider-color);
+        border-radius: 8px;
+        background-color: var(--global-code-bg-color);
+        color: var(--global-text-color-light);
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+    }
+
+    ol.bibliography {
+      margin-bottom: 0.5rem;
+
+      li {
+        margin-bottom: 1rem;
+        padding: 0.95rem;
+        border: 1px solid var(--global-divider-color);
+        border-radius: 8px;
+        background-color: var(--global-bg-color);
+        box-shadow: none;
+
+        &:hover {
+          background-color: var(--global-bg-color);
+          box-shadow: none;
+        }
+
+        .row {
+          margin-left: 0;
+          margin-right: 0;
+        }
+
+        .title {
+          font-size: 1rem;
+          line-height: 1.35;
+          margin-bottom: 0.35rem;
+        }
+
+        .author,
+        .periodical {
+          font-size: 0.94rem;
+          line-height: 1.45;
+        }
+
+        .periodical {
+          color: var(--global-text-color-light);
+          margin-top: 0.15rem;
+
+          em {
+            color: inherit;
+          }
+        }
+
+        .links {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.4rem;
+          margin-top: 0.65rem;
+
+          a.btn {
+            display: inline-flex;
+            align-items: center;
+            min-height: 32px;
+            margin: 0;
+            padding: 0.25rem 0.7rem;
+            font-size: 0.78rem;
+            line-height: 1.25;
+          }
+        }
+
+        .hidden {
+          text-align: left;
+
+          p {
+            margin: 0.75rem 0 0;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -1302,7 +1403,7 @@ swiper-container {
     li {
       margin-bottom: 1.5rem;
       padding: 1.1rem 1rem;
-      border-radius: 10px;
+      border-radius: 8px;
       transition:
         background-color 0.2s ease,
         box-shadow 0.2s ease;
@@ -1327,7 +1428,7 @@ swiper-container {
       // Rounded "pill" venue badge with a soft shadow
       .abbr abbr.badge {
         border-radius: 50rem;
-        letter-spacing: 0.02em;
+        letter-spacing: 0;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
       }
 
