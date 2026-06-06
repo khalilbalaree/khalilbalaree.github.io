@@ -1081,6 +1081,10 @@ nav[data-toggle="toc"] {
       line-height: 1;
       opacity: 1;
 
+      &::after {
+        content: none;
+      }
+
       span {
         display: inline-flex;
         align-items: center;
@@ -1106,9 +1110,11 @@ nav[data-toggle="toc"] {
         border-radius: 8px;
         background-color: var(--global-bg-color);
         box-shadow: none;
+        transition: none;
 
         &:hover {
           background-color: var(--global-bg-color);
+          border-color: var(--global-divider-color);
           box-shadow: none;
         }
 
@@ -1429,23 +1435,36 @@ swiper-container {
 .publications {
   ol.bibliography {
     li {
-      margin-bottom: 1.5rem;
-      padding: 1.1rem 1rem;
+      margin-bottom: 1.25rem;
+      padding: 1rem;
+      border: 1px solid var(--global-divider-color);
       border-radius: 8px;
+      background-color: var(--global-bg-color);
       transition:
+        border-color 0.2s ease,
         background-color 0.2s ease,
         box-shadow 0.2s ease;
 
-      // Each entry reads as a subtle card that lifts on hover
       &:hover {
         background-color: var(--global-code-bg-color);
-        box-shadow: 0 3px 14px rgba(0, 0, 0, 0.06);
+        border-color: rgba(181, 9, 172, 0.22);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      }
+
+      .row {
+        align-items: flex-start;
+      }
+
+      .preview {
+        display: block;
+        margin-top: 0.35rem;
+        border: 1px solid var(--global-divider-color);
       }
 
       .title {
-        font-size: 1.05rem;
-        line-height: 1.4;
-        margin-bottom: 0.15rem;
+        font-size: 1.08rem;
+        line-height: 1.35;
+        margin-bottom: 0.25rem;
       }
 
       .author,
@@ -1453,39 +1472,92 @@ swiper-container {
         line-height: 1.5;
       }
 
-      // Rounded "pill" venue badge with a soft shadow
-      .abbr abbr.badge {
-        border-radius: 50rem;
-        letter-spacing: 0;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+      .author {
+        font-size: 0.95rem;
       }
 
-      // Pill-style action buttons that fill with the theme color on hover
-      .links a.btn {
-        border-radius: 50rem;
-        font-size: 0.8rem;
-        margin-top: 0.35rem;
-        transition: all 0.2s ease;
+      .periodical {
+        color: var(--global-text-color-light);
+        font-size: 0.92rem;
 
-        &:not(.award):hover {
-          background-color: var(--global-theme-color);
-          border-color: var(--global-theme-color);
+        em {
+          color: inherit;
+        }
+      }
+
+      .abbr abbr.badge {
+        width: auto;
+        max-width: 100%;
+        padding: 0.32rem 0.55rem;
+        border-radius: 50rem;
+        letter-spacing: 0;
+        line-height: 1.1;
+        white-space: normal;
+        text-align: center;
+        box-shadow: none;
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.65rem;
+
+        a.btn {
+          display: inline-flex;
+          align-items: center;
+          min-height: 30px;
+          margin: 0;
+          padding: 0.25rem 0.75rem;
+          border-radius: 50rem;
+          font-size: 0.8rem;
+          line-height: 1.25;
+          transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease;
+
+          &:not(.award):hover {
+            background-color: var(--global-theme-color);
+            border-color: var(--global-theme-color);
+            color: var(--global-hover-text-color);
+          }
+        }
+
+        a.award.btn:hover {
+          background-color: var(--global-highlight-color);
+          border-color: var(--global-highlight-color);
           color: var(--global-hover-text-color);
         }
       }
 
-      .links a.award.btn:hover {
-        background-color: var(--global-highlight-color);
-        border-color: var(--global-highlight-color);
-        color: var(--global-hover-text-color);
+      .hidden.open {
+        margin-top: 0.75rem;
+        border-radius: 8px;
+        background-color: var(--global-bg-color);
       }
     }
   }
 
-  // Year separators: understated, but a touch more legible
   h2.bibliography {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 2.25rem 0 1rem;
+    padding-top: 0;
+    border-top: 0;
     color: var(--global-text-color-light);
+    font-size: 1.35rem;
     font-weight: 700;
-    opacity: 0.45;
+    line-height: 1;
+    text-align: left;
+    opacity: 0.72;
+
+    &::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: var(--global-divider-color);
+    }
   }
 }
