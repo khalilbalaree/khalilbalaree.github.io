@@ -1451,14 +1451,51 @@ swiper-container {
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
       }
 
+      &.publication-card-clickable {
+        cursor: pointer;
+
+        &:focus,
+        &:focus-within {
+          border-color: var(--global-theme-color);
+          box-shadow: 0 0 0 3px rgba(181, 9, 172, 0.12);
+          outline: none;
+        }
+      }
+
       .row {
         align-items: flex-start;
       }
 
+      .publication-card {
+        outline: none;
+      }
+
+      .abbr {
+        height: auto;
+        margin-bottom: 0;
+        gap: 0.55rem;
+
+        figure,
+        picture {
+          display: block;
+          width: 100%;
+          margin: 0;
+        }
+      }
+
       .preview {
         display: block;
-        margin-top: 0.35rem;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        height: 4.75rem;
+        margin-top: 0;
+        padding: 0.35rem;
         border: 1px solid var(--global-divider-color);
+        border-radius: 6px;
+        background-color: var(--global-bg-color);
+        object-fit: contain;
+        box-shadow: none;
       }
 
       .title {
@@ -1488,6 +1525,7 @@ swiper-container {
       .abbr abbr.badge {
         width: auto;
         max-width: 100%;
+        margin-bottom: 0;
         padding: 0.32rem 0.55rem;
         border-radius: 50rem;
         letter-spacing: 0;

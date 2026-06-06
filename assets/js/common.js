@@ -15,6 +15,48 @@ $(document).ready(function () {
     $(this).parent().parent().find(".award.hidden.open").toggleClass("open");
     $(this).parent().parent().find(".bibtex.hidden").toggleClass("open");
   });
+
+  $(".publication-card[data-paper-url]").each(function () {
+    const card = $(this);
+    const item = card.closest("li");
+
+    item.addClass("publication-card-clickable");
+    item.attr("tabindex", "0");
+    item.attr("role", "link");
+    item.attr("aria-label", card.attr("aria-label"));
+  });
+
+  function shouldSkipPublicationCardOpen(target) {
+    return $(target).closest("a, button, input, textarea, select, label, .more-authors, .hidden, pre, code").length > 0;
+  }
+
+  $(".publication-card-clickable").on("click", function (event) {
+    if (shouldSkipPublicationCardOpen(event.target)) {
+      return;
+    }
+
+    const url = $(this).find(".publication-card[data-paper-url]").attr("data-paper-url");
+    if (url) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  });
+
+  $(".publication-card-clickable").on("keydown", function (event) {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    if (shouldSkipPublicationCardOpen(event.target)) {
+      return;
+    }
+
+    const url = $(this).find(".publication-card[data-paper-url]").attr("data-paper-url");
+    if (url) {
+      event.preventDefault();
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  });
+
   $("a").removeClass("waves-effect waves-light");
 
   // bootstrap-toc

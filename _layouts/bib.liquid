@@ -1,6 +1,34 @@
 ---
 ---
-<div class="row">
+{% assign paper_url = '' %}
+{% if entry.pdf %}
+  {% if entry.pdf contains '://' %}
+    {% assign paper_url = entry.pdf %}
+  {% else %}
+    {% assign paper_url = entry.pdf | prepend: '/assets/pdf/' | relative_url %}
+  {% endif %}
+{% elsif entry.url %}
+  {% assign paper_url = entry.url %}
+  {% if paper_url contains 'arxiv.org/abs/' %}
+    {% assign paper_url = paper_url | replace: 'arxiv.org/abs/', 'arxiv.org/pdf/' %}
+  {% elsif paper_url contains 'openreview.net/forum?id=' %}
+    {% assign paper_url = paper_url | replace: 'openreview.net/forum?id=', 'openreview.net/pdf?id=' %}
+  {% endif %}
+{% elsif entry.arxiv %}
+  {% assign paper_url = entry.arxiv | prepend: 'https://arxiv.org/pdf/' %}
+{% elsif entry.eprint %}
+  {% if entry.archivePrefix == 'arXiv' %}
+    {% assign paper_url = entry.eprint | prepend: 'https://arxiv.org/pdf/' %}
+  {% endif %}
+{% endif %}
+
+<div
+  class="row publication-card"
+  {% if paper_url != '' %}
+    data-paper-url="{{ paper_url | strip | escape }}"
+    aria-label="Open {{ entry.title | strip_html | escape }} paper"
+  {% endif %}
+>
   {% if site.enable_publication_thumbnails %}
     <div class="col-sm-2 abbr">
       {%- if entry.abbr -%}
@@ -36,7 +64,6 @@
             path=entry_path
             sizes = "200px"
             class="preview z-depth-1 rounded"
-            zoomable=true
             alt=entry.preview
           %}
         {% endif %}
