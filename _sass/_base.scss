@@ -1213,11 +1213,12 @@ swiper-container {
   // Vertical timeline for education & experience
   .timeline {
     position: relative;
-    padding-left: 1.75rem;
+    padding-left: 0;
     border-left: 2px solid var(--global-divider-color);
 
     .timeline-item {
       position: relative;
+      padding-left: 1.75rem;
       padding-bottom: 1.5rem;
 
       &:last-child {
@@ -1227,11 +1228,9 @@ swiper-container {
       &::before {
         content: "";
         position: absolute;
-        // Offset the dot left of the timeline line. Use a plain negative
-        // length (not calc) so the CSS minifier can't mangle it into an
-        // invalid `calc( - … )` and drop the declaration in production.
-        left: -2.13rem;
+        left: 0;
         top: 0.35em;
+        transform: translateX(-50%);
         width: 11px;
         height: 11px;
         border-radius: 50%;
