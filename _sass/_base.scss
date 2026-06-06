@@ -1210,32 +1210,27 @@ swiper-container {
     }
   }
 
-  // Vertical timeline for education & experience
+  // Stacked education & experience entries
   .timeline {
     position: relative;
     padding-left: 0;
-    border-left: 2px solid var(--global-divider-color);
+    border-left: 0;
 
     .timeline-item {
       position: relative;
-      padding-left: 1.75rem;
-      padding-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--global-divider-color);
 
       &:last-child {
         padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: 0;
       }
 
       &::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0.35em;
-        transform: translateX(-50%);
-        width: 11px;
-        height: 11px;
-        border-radius: 50%;
-        background-color: var(--global-bg-color);
-        border: 2.5px solid var(--global-theme-color);
+        content: none;
+        display: none;
       }
     }
 
