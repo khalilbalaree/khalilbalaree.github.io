@@ -86,7 +86,7 @@ selected_papers: false
 
 <section class="about-section">
   <h2 class="section-heading">Beyond Research</h2>
-  <p class="beyond">I am an outdoor enthusiast who loves snowboarding and skiing in winter, mountain biking and hiking in summer, and traveling year-round. When staying indoors, I enjoy sci-fi movies and hip-hop music. I have a British Shorthair cat named UA (short for University of Alberta).</p>
+  <p class="beyond">Outside research, I enjoy snowboarding, skiing, mountain biking, hiking, travel, sci-fi movies, and hip-hop music. I also have a British Shorthair cat named UA.</p>
 </section>
 
 </div>
