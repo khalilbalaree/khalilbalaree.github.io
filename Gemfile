@@ -25,3 +25,11 @@ group :other_plugins do
     gem 'feedjira'
     gem 'httparty'
 end
+
+# Formerly-default gems removed from Ruby's standard library (3.4+/4.0).
+# Declared explicitly so Jekyll plugins can require them under Bundler.
+gem 'base64'
+gem 'bigdecimal'
+gem 'csv'
+gem 'logger'
+gem 'ostruct'

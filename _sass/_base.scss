@@ -1134,3 +1134,232 @@ swiper-container {
     border-bottom: 2px solid var(--global-text-color);
   }
 }
+
+/*******************************************************************************
+ * About page
+ ******************************************************************************/
+
+.post-header .desc {
+  color: var(--global-text-color-light);
+  font-size: 1.05rem;
+  font-weight: 300;
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+}
+
+.about-page {
+  margin-top: 1.5rem;
+
+  .about-section {
+    margin-bottom: 2.75rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Section headings with a subtle accent underline
+  .section-heading {
+    position: relative;
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.4rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 2.5rem;
+      height: 3px;
+      border-radius: 3px;
+      background-color: var(--global-theme-color);
+    }
+  }
+
+  // Research-focus bullet list with themed markers
+  .focus-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.6rem;
+      line-height: 1.55;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.55em;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background-color: var(--global-theme-color);
+      }
+    }
+  }
+
+  // Vertical timeline for education & experience
+  .timeline {
+    position: relative;
+    padding-left: 1.75rem;
+    border-left: 2px solid var(--global-divider-color);
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 1.5rem;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: calc(-1.75rem - 6px);
+        top: 0.35em;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background-color: var(--global-bg-color);
+        border: 2.5px solid var(--global-theme-color);
+      }
+    }
+
+    .ti-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.15rem 1rem;
+    }
+
+    .ti-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .ti-date {
+      color: var(--global-text-color-light);
+      font-size: 0.85rem;
+      font-family: monospace;
+      white-space: nowrap;
+    }
+
+    .ti-place {
+      color: var(--global-text-color-light);
+      font-size: 0.95rem;
+      margin-top: 0.1rem;
+    }
+
+    .ti-courses {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+
+      li {
+        position: relative;
+        padding-left: 1rem;
+        margin-bottom: 0.2rem;
+        font-size: 0.9rem;
+        color: var(--global-text-color-light);
+
+        &::before {
+          content: "–";
+          position: absolute;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  // Callout block for the "Beyond Research" section
+  .beyond {
+    margin-bottom: 0;
+    padding: 1.1rem 1.4rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--global-theme-color);
+    background-color: var(--global-code-bg-color);
+    line-height: 1.6;
+  }
+}
+
+/*******************************************************************************
+ * Publications page polish (consistent with the about page)
+ ******************************************************************************/
+
+.publications {
+  ol.bibliography {
+    li {
+      margin-bottom: 1.5rem;
+      padding: 1.1rem 1rem;
+      border-radius: 10px;
+      transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+      // Each entry reads as a subtle card that lifts on hover
+      &:hover {
+        background-color: var(--global-code-bg-color);
+        box-shadow: 0 3px 14px rgba(0, 0, 0, 0.06);
+      }
+
+      .title {
+        font-size: 1.05rem;
+        line-height: 1.4;
+        margin-bottom: 0.15rem;
+      }
+
+      .author,
+      .periodical {
+        line-height: 1.5;
+      }
+
+      // Rounded "pill" venue badge with a soft shadow
+      .abbr abbr.badge {
+        border-radius: 50rem;
+        letter-spacing: 0.02em;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+      }
+
+      // Pill-style action buttons that fill with the theme color on hover
+      .links a.btn {
+        border-radius: 50rem;
+        font-size: 0.8rem;
+        margin-top: 0.35rem;
+        transition: all 0.2s ease;
+
+        &:not(.award):hover {
+          background-color: var(--global-theme-color);
+          border-color: var(--global-theme-color);
+          color: var(--global-hover-text-color);
+        }
+      }
+
+      .links a.award.btn:hover {
+        background-color: var(--global-highlight-color);
+        border-color: var(--global-highlight-color);
+        color: var(--global-hover-text-color);
+      }
+    }
+  }
+
+  // Year separators: understated, but a touch more legible
+  h2.bibliography {
+    color: var(--global-text-color-light);
+    font-weight: 700;
+    opacity: 0.45;
+  }
+}
