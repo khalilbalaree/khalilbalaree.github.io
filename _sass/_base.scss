@@ -1227,7 +1227,10 @@ swiper-container {
       &::before {
         content: "";
         position: absolute;
-        left: calc(-1.75rem - 6px);
+        // Offset the dot left of the timeline line. Use a plain negative
+        // length (not calc) so the CSS minifier can't mangle it into an
+        // invalid `calc( - … )` and drop the declaration in production.
+        left: -2.13rem;
         top: 0.35em;
         width: 11px;
         height: 11px;
