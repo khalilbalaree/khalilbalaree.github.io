@@ -1319,7 +1319,7 @@ swiper-container {
 
   // Vertical timeline for education & experience
   .timeline {
-    --timeline-gutter: 1.5rem;
+    --timeline-gutter: 1.9rem;
     --timeline-line-left: 0.75rem;
     --timeline-dot-size: 11px;
 
@@ -1447,7 +1447,7 @@ swiper-container {
 
       &:hover {
         background-color: var(--global-code-bg-color);
-        border-color: rgba(181, 9, 172, 0.22);
+        border-color: rgba(var(--global-theme-color-rgb), 0.24);
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
       }
 
@@ -1457,7 +1457,7 @@ swiper-container {
         &:focus,
         &:focus-within {
           border-color: var(--global-theme-color);
-          box-shadow: 0 0 0 3px rgba(181, 9, 172, 0.12);
+          box-shadow: 0 0 0 3px rgba(var(--global-theme-color-rgb), 0.16);
           outline: none;
         }
       }
