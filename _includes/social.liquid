@@ -1,5 +1,12 @@
 {% if site.email %}
-  <a href="mailto:{{ site.email | encode_email }}" title="email"><i class="fa-solid fa-envelope"></i></a>
+  <a href="#" class="email-toggle" title="email" aria-expanded="false" aria-haspopup="dialog" data-email="{{ site.email }}">
+    <i class="fa-solid fa-envelope"></i>
+  </a>
+  <div class="email-copy-panel" role="dialog" aria-label="Email address" hidden>
+    <span class="email-address">{{ site.email }}</span>
+    <button type="button" class="email-copy-button" data-email="{{ site.email }}">Copy</button>
+    <span class="email-copy-status" role="status" aria-live="polite"></span>
+  </div>
 {% endif %}
 {% if site.telegram_username %}
   <a href="https://telegram.me/{{ site.telegram_username }}" title="telegram"><i class="fa-brands fa-telegram"></i></a>

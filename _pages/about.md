@@ -17,8 +17,7 @@ selected_papers: false
 
 <section class="about-section">
   <h2 class="section-heading">About Me</h2>
-  <p>I am a <strong>PhD candidate</strong> at the University of Alberta, supervised by Prof. <a href="https://scholar.google.com/citations?hl=en&user=32UrMrQAAAAJ">Lili Mou</a>.</p>
-  <p>My research lies at the intersection of <strong>Natural Language Processing</strong> and <strong>Machine Learning</strong>, with a focus on:</p>
+  <p>I am a <strong>PhD candidate</strong> at the University of Alberta, supervised by Prof. <a href="https://scholar.google.com/citations?hl=en&user=32UrMrQAAAAJ">Lili Mou</a>. My research lies at the intersection of <strong>Natural Language Processing</strong> and <strong>Machine Learning</strong>, with a focus on:</p>
   <ul class="focus-list">
     <li>Interpretable representations that bridge machine learning models and human understanding</li>
     <li>Embedding learning for efficient context in large language models</li>
