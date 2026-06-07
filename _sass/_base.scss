@@ -1304,6 +1304,7 @@ swiper-container {
 }
 
 .about-page {
+  clear: both;
   margin-top: 1.5rem;
 
   .about-section {
@@ -1516,14 +1517,7 @@ swiper-container {
       }
 
       .publication-card {
-        justify-content: center;
-        margin-left: 0;
-        margin-right: 0;
         outline: none;
-      }
-
-      .publication-details {
-        min-width: 0;
       }
 
       .abbr {
