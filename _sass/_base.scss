@@ -405,6 +405,15 @@ ul.task-list input[type="checkbox"] {
         transition: color 0.2s ease;
       }
 
+      .email-copy-label {
+        display: none;
+        color: var(--global-theme-color);
+        font-size: 0.55rem;
+        font-weight: 400;
+        line-height: 1;
+        white-space: nowrap;
+      }
+
       &:hover {
         border-color: var(--global-theme-color);
         background-color: var(--global-code-bg-color);
@@ -416,57 +425,19 @@ ul.task-list input[type="checkbox"] {
           color: var(--global-theme-color);
         }
       }
-    }
 
-    .email-copy-panel {
-      display: flex;
-      flex: 0 0 100%;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      margin-top: 0.2rem;
-      font-size: 0.86rem;
+      &.is-copied {
+        border-color: var(--global-theme-color);
+        background-color: var(--global-code-bg-color);
 
-      &[hidden] {
-        display: none;
+        i {
+          display: none;
+        }
+
+        .email-copy-label {
+          display: inline;
+        }
       }
-    }
-
-    .email-address {
-      max-width: 18rem;
-      min-width: 0;
-      overflow-wrap: anywhere;
-      color: var(--global-text-color);
-      font-family: monospace;
-    }
-
-    .email-copy-button {
-      min-height: 1.75rem;
-      padding: 0.2rem 0.65rem;
-      border: 1px solid var(--global-theme-color);
-      border-radius: 999px;
-      background-color: var(--global-theme-color);
-      color: var(--global-hover-text-color);
-      font-size: 0.78rem;
-      line-height: 1.2;
-      transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease;
-
-      &:hover,
-      &:focus {
-        border-color: var(--global-hover-color);
-        background-color: var(--global-hover-color);
-        outline: none;
-      }
-    }
-
-    .email-copy-status {
-      min-width: 3rem;
-      color: var(--global-text-color-light);
-      font-size: 0.78rem;
-      text-align: left;
     }
   }
 
@@ -1545,7 +1516,14 @@ swiper-container {
       }
 
       .publication-card {
+        justify-content: center;
+        margin-left: 0;
+        margin-right: 0;
         outline: none;
+      }
+
+      .publication-details {
+        min-width: 0;
       }
 
       .abbr {

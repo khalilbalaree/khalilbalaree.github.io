@@ -16,34 +16,26 @@ $(document).ready(function () {
     $(this).parent().parent().find(".bibtex.hidden").toggleClass("open");
   });
 
-  function closeEmailPanel() {
-    $(".email-copy-panel").attr("hidden", true);
-    $(".email-toggle").attr("aria-expanded", "false");
-    $(".email-copy-status").text("");
-  }
-
-  $(".email-toggle").on("click", function (event) {
+  $(".email-copy-link").on("click", async function (event) {
     event.preventDefault();
 
-    const toggle = $(this);
-    const panel = toggle.next(".email-copy-panel");
-    const shouldOpen = panel.attr("hidden") !== undefined;
-
-    closeEmailPanel();
-
-    if (shouldOpen) {
-      panel.removeAttr("hidden");
-      toggle.attr("aria-expanded", "true");
-    }
-  });
-
-  $(".email-copy-button").on("click", async function () {
+    const link = $(this);
     const email = $(this).attr("data-email");
-    const status = $(this).siblings(".email-copy-status");
+    const status = $(this).next(".email-copy-status");
+
+    function showCopiedStatus() {
+      clearTimeout(status.data("hide-timeout"));
+      link.addClass("is-copied");
+      status.text("Copied");
+      const timeout = setTimeout(function () {
+        link.removeClass("is-copied");
+        status.text("");
+      }, 1000);
+      status.data("hide-timeout", timeout);
+    }
 
     try {
       await navigator.clipboard.writeText(email);
-      status.text("Copied");
     } catch (error) {
       const input = document.createElement("textarea");
       input.value = email;
@@ -54,21 +46,9 @@ $(document).ready(function () {
       input.select();
       document.execCommand("copy");
       document.body.removeChild(input);
-      status.text("Copied");
     }
-  });
 
-  $(document).on("click", function (event) {
-    if ($(event.target).closest(".email-toggle, .email-copy-panel").length === 0) {
-      closeEmailPanel();
-    }
-  });
-
-  $(".email-copy-panel").on("keydown", function (event) {
-    if (event.key === "Escape") {
-      closeEmailPanel();
-      $(".email-toggle").trigger("focus");
-    }
+    showCopiedStatus();
   });
 
   $(".publication-card[data-paper-url]").each(function () {

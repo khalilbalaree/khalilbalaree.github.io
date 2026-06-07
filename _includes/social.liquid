@@ -1,12 +1,9 @@
 {% if site.email %}
-  <a href="#" class="email-toggle" title="email" aria-expanded="false" aria-haspopup="dialog" data-email="{{ site.email }}">
+  <a href="#" class="email-copy-link" title="Copy email address" aria-label="Copy email address" data-email="{{ site.email }}">
     <i class="fa-solid fa-envelope"></i>
+    <span class="email-copy-label" aria-hidden="true">Copied</span>
   </a>
-  <div class="email-copy-panel" role="dialog" aria-label="Email address" hidden>
-    <span class="email-address">{{ site.email }}</span>
-    <button type="button" class="email-copy-button" data-email="{{ site.email }}">Copy</button>
-    <span class="email-copy-status" role="status" aria-live="polite"></span>
-  </div>
+  <span class="email-copy-status sr-only" role="status" aria-live="polite"></span>
 {% endif %}
 {% if site.telegram_username %}
   <a href="https://telegram.me/{{ site.telegram_username }}" title="telegram"><i class="fa-brands fa-telegram"></i></a>
