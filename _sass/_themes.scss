@@ -4,13 +4,13 @@
 
 :root {
   --global-bg-color: #f8fafc;
-  --global-code-bg-color: rgba(147, 197, 253, 0.18);
+  --global-code-bg-color: rgba(29, 78, 216, 0.06);
   --global-text-color: #172033;
   --global-text-color-light: #64748b;
-  --global-theme-color-rgb: 147, 197, 253;
-  --global-theme-color: #93c5fd;
-  --global-hover-color: #bfdbfe;
-  --global-hover-text-color: #0b1220;
+  --global-theme-color-rgb: 29, 78, 216;
+  --global-theme-color: #1d4ed8;
+  --global-hover-color: #1e40af;
+  --global-hover-text-color: #{$white-color};
   --global-footer-bg-color: #{$grey-color-dark};
   --global-footer-text-color: #{$grey-color-light};
   --global-footer-link-color: #{$white-color};
@@ -56,13 +56,13 @@
 
 html[data-theme="dark"] {
   --global-bg-color: #0b1220;
-  --global-code-bg-color: rgba(29, 78, 216, 0.2);
+  --global-code-bg-color: rgba(147, 197, 253, 0.12);
   --global-text-color: #e5e7eb;
   --global-text-color-light: #94a3b8;
-  --global-theme-color-rgb: 29, 78, 216;
-  --global-theme-color: #1d4ed8;
-  --global-hover-color: #1e40af;
-  --global-hover-text-color: #{$white-color};
+  --global-theme-color-rgb: 147, 197, 253;
+  --global-theme-color: #93c5fd;
+  --global-hover-color: #bfdbfe;
+  --global-hover-text-color: #0b1220;
   --global-footer-bg-color: #{$grey-color-light};
   --global-footer-text-color: #{$grey-color-dark};
   --global-footer-link-color: #{$black-color};
