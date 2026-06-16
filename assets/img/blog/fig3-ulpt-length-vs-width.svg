@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 410" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" role="img" aria-label="With the same parameter budget, a short full-width prompt uses few positions of high dimension while a long low-dimensional prompt uses many positions of low dimension; the long low-dimensional prompt yields higher task performance.">
+  <!-- title -->
+  <text x="360" y="26" text-anchor="middle" font-size="16" font-weight="700" fill="#9aa0a6">Same parameter budget, spent two ways</text>
+
+  <!-- divider -->
+  <line x1="360" y1="46" x2="360" y2="236" stroke="#888" stroke-opacity="0.3" stroke-dasharray="4 5"/>
+
+  <!-- ===== LEFT: short prompt, full width (few tall vectors) ===== -->
+  <text x="180" y="60" text-anchor="middle" font-size="14" font-weight="700" fill="#9aa0a6">Short prompt · full width</text>
+  <g fill="#88888833" stroke="#888">
+    <!-- col 1 -->
+    <rect x="157" y="74" width="12" height="12"/><rect x="157" y="89" width="12" height="12"/><rect x="157" y="104" width="12" height="12"/><rect x="157" y="119" width="12" height="12"/><rect x="157" y="134" width="12" height="12"/><rect x="157" y="149" width="12" height="12"/><rect x="157" y="164" width="12" height="12"/><rect x="157" y="179" width="12" height="12"/>
+    <!-- col 2 -->
+    <rect x="174" y="74" width="12" height="12"/><rect x="174" y="89" width="12" height="12"/><rect x="174" y="104" width="12" height="12"/><rect x="174" y="119" width="12" height="12"/><rect x="174" y="134" width="12" height="12"/><rect x="174" y="149" width="12" height="12"/><rect x="174" y="164" width="12" height="12"/><rect x="174" y="179" width="12" height="12"/>
+    <!-- col 3 -->
+    <rect x="191" y="74" width="12" height="12"/><rect x="191" y="89" width="12" height="12"/><rect x="191" y="104" width="12" height="12"/><rect x="191" y="119" width="12" height="12"/><rect x="191" y="134" width="12" height="12"/><rect x="191" y="149" width="12" height="12"/><rect x="191" y="164" width="12" height="12"/><rect x="191" y="179" width="12" height="12"/>
+  </g>
+  <text x="180" y="212" text-anchor="middle" font-size="12" fill="#9aa0a6">few positions × full dim</text>
+  <text x="180" y="231" text-anchor="middle" font-size="12.5" font-weight="600" fill="#9aa0a6">= 24 trainable values</text>
+
+  <!-- ===== RIGHT: long prompt, low dim (many short vectors) ===== -->
+  <text x="540" y="60" text-anchor="middle" font-size="14" font-weight="700" fill="#e08e45">Long prompt · low dim</text>
+  <g fill="#e08e4533" stroke="#e08e45">
+    <rect x="430" y="120" width="12" height="12"/><rect x="430" y="135" width="12" height="12"/>
+    <rect x="447" y="120" width="12" height="12"/><rect x="447" y="135" width="12" height="12"/>
+    <rect x="464" y="120" width="12" height="12"/><rect x="464" y="135" width="12" height="12"/>
+    <rect x="481" y="120" width="12" height="12"/><rect x="481" y="135" width="12" height="12"/>
+    <rect x="498" y="120" width="12" height="12"/><rect x="498" y="135" width="12" height="12"/>
+    <rect x="515" y="120" width="12" height="12"/><rect x="515" y="135" width="12" height="12"/>
+    <rect x="532" y="120" width="12" height="12"/><rect x="532" y="135" width="12" height="12"/>
+    <rect x="549" y="120" width="12" height="12"/><rect x="549" y="135" width="12" height="12"/>
+    <rect x="566" y="120" width="12" height="12"/><rect x="566" y="135" width="12" height="12"/>
+    <rect x="583" y="120" width="12" height="12"/><rect x="583" y="135" width="12" height="12"/>
+    <rect x="600" y="120" width="12" height="12"/><rect x="600" y="135" width="12" height="12"/>
+    <rect x="617" y="120" width="12" height="12"/><rect x="617" y="135" width="12" height="12"/>
+  </g>
+  <text x="540" y="212" text-anchor="middle" font-size="12" fill="#e08e45">many positions × low dim</text>
+  <text x="540" y="231" text-anchor="middle" font-size="12.5" font-weight="600" fill="#e08e45">= 24 trainable values</text>
+
+  <!-- ===== performance comparison ===== -->
+  <text x="360" y="266" text-anchor="middle" font-size="13" font-weight="700" fill="#9aa0a6">Task performance at this budget</text>
+
+  <!-- baseline -->
+  <line x1="250" y1="378" x2="470" y2="378" stroke="#888" stroke-opacity="0.5"/>
+
+  <!-- left bar (lower) -->
+  <rect x="280" y="338" width="62" height="40" rx="3" fill="#88888833" stroke="#888"/>
+  <text x="311" y="396" text-anchor="middle" font-size="11" fill="#9aa0a6">short · full-dim</text>
+
+  <!-- right bar (higher, better) -->
+  <rect x="378" y="292" width="62" height="86" rx="3" fill="#e08e4533" stroke="#e08e45"/>
+  <text x="409" y="396" text-anchor="middle" font-size="11" fill="#e08e45">long · low-dim</text>
+  <text x="409" y="284" text-anchor="middle" font-size="11.5" font-weight="700" fill="#e08e45">▲ better</text>
+</svg>

@@ -92,6 +92,37 @@ $(document).ready(function () {
     }
   });
 
+  // Make blog index cards fully clickable (skipping inner links such as tags)
+  function navigateBlogCard(card) {
+    const url = card.getAttribute("data-post-url");
+    if (!url) {
+      return;
+    }
+    if (/^https?:\/\//.test(url)) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    } else {
+      window.location.href = url;
+    }
+  }
+
+  $(".blog-card[data-post-url]").on("click", function (event) {
+    if (shouldSkipPublicationCardOpen(event.target)) {
+      return;
+    }
+    navigateBlogCard(this);
+  });
+
+  $(".blog-card[data-post-url]").on("keydown", function (event) {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+    if (shouldSkipPublicationCardOpen(event.target)) {
+      return;
+    }
+    event.preventDefault();
+    navigateBlogCard(this);
+  });
+
   $("a").removeClass("waves-effect waves-light");
 
   // bootstrap-toc

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" role="img" aria-label="A tiny trainable low-dimensional vector z is up-projected by a frozen random matrix R into a full-width prompt embedding, which is fed to a frozen language model. Only z is learned.">
+  <defs>
+    <marker id="up" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#888"/>
+    </marker>
+  </defs>
+
+  <!-- z: trainable low-dim vector -->
+  <rect x="36" y="86" width="46" height="46" rx="9" fill="#e08e4522" stroke="#e08e45" stroke-width="2.5"/>
+  <text x="59" y="108" text-anchor="middle" font-size="17" font-weight="700" fill="#e08e45">z</text>
+  <text x="59" y="124" text-anchor="middle" font-size="9" fill="#e08e45">2D</text>
+  <text x="59" y="158" text-anchor="middle" font-size="11" font-weight="600" fill="#e08e45">trainable</text>
+  <text x="59" y="173" text-anchor="middle" font-size="11" fill="#e08e45">low-dim vector</text>
+
+  <!-- arrow z -> R -->
+  <line x1="84" y1="109" x2="142" y2="109" stroke="#888" stroke-width="2" marker-end="url(#up)"/>
+  <text x="113" y="100" text-anchor="middle" font-size="10" fill="#9aa0a6">×</text>
+
+  <!-- R: frozen random matrix -->
+  <rect x="144" y="80" width="92" height="58" rx="10" fill="none" stroke="#888" stroke-width="2"/>
+  <text x="190" y="104" text-anchor="middle" font-size="16" font-weight="700" fill="#9aa0a6">R</text>
+  <text x="190" y="122" text-anchor="middle" font-size="9.5" fill="#9aa0a6">❄ frozen random</text>
+  <text x="190" y="170" text-anchor="middle" font-size="11" fill="#9aa0a6">fixed up-projection</text>
+
+  <!-- arrow R -> p -->
+  <line x1="238" y1="109" x2="296" y2="109" stroke="#888" stroke-width="2" marker-end="url(#up)"/>
+
+  <!-- p: full-width prompt embedding -->
+  <rect x="298" y="92" width="150" height="34" rx="7" fill="#88888822" stroke="#888"/>
+  <text x="373" y="108" text-anchor="middle" font-size="13" font-weight="600" fill="#9aa0a6">prompt embedding</text>
+  <text x="373" y="121" text-anchor="middle" font-size="9.5" fill="#9aa0a6">full width (d-dim)</text>
+  <text x="373" y="170" text-anchor="middle" font-size="11" fill="#9aa0a6">what the model expects</text>
+
+  <!-- arrow p -> LLM -->
+  <line x1="450" y1="109" x2="508" y2="109" stroke="#888" stroke-width="2" marker-end="url(#up)"/>
+  <text x="479" y="100" text-anchor="middle" font-size="9.5" fill="#9aa0a6">prepend</text>
+
+  <!-- frozen LLM -->
+  <rect x="510" y="80" width="104" height="58" rx="11" fill="none" stroke="#e08e45" stroke-width="2.5"/>
+  <text x="562" y="106" text-anchor="middle" font-size="16" font-weight="700" fill="#e08e45">LLM</text>
+  <text x="562" y="124" text-anchor="middle" font-size="10" fill="#e08e45">❄ frozen</text>
+
+  <!-- footnote -->
+  <text x="325" y="216" text-anchor="middle" font-size="12.5" font-weight="600" fill="#9aa0a6">Only <tspan fill="#e08e45">z</tspan> is learned — the random matrix and the model never change.</text>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" role="img" aria-label="The source prompt is described by its similarities to shared anchor words, producing a model-agnostic relative representation of the task; a matching prompt is then searched for in the target model.">
+  <defs>
+    <marker id="ra" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#888"/>
+    </marker>
+  </defs>
+
+  <text x="360" y="26" text-anchor="middle" font-size="16" font-weight="700" fill="#9aa0a6">Describe the prompt by what it's <tspan fill="#e08e45">near</tspan>, not where it sits</text>
+
+  <!-- ===== 1. source prompt in Model A ===== -->
+  <rect x="28" y="92" width="120" height="150" rx="10" fill="none" stroke="#888" stroke-opacity="0.5"/>
+  <text x="88" y="112" text-anchor="middle" font-size="13" font-weight="700" fill="#9aa0a6">Model A</text>
+  <path d="M88 150 l5.4 11 12.1 1.8 -8.7 8.5 2 12 -10.8 -5.7 -10.8 5.7 2 -12 -8.7 -8.5 12.1 -1.8 z" fill="#e08e45" stroke="#e08e45"/>
+  <text x="88" y="210" text-anchor="middle" font-size="11" fill="#e08e45">source prompt ★</text>
+  <text x="88" y="228" text-anchor="middle" font-size="10.5" fill="#9aa0a6">(already tuned)</text>
+
+  <!-- arrow to anchors -->
+  <line x1="150" y1="167" x2="196" y2="167" stroke="#888" stroke-width="2" marker-end="url(#ra)"/>
+
+  <!-- ===== 2. shared anchor words ===== -->
+  <text x="258" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="#9aa0a6">shared anchor words</text>
+  <g font-size="11.5" fill="#9aa0a6">
+    <rect x="208" y="92" width="100" height="26" rx="13" fill="none" stroke="#888"/><text x="258" y="109" text-anchor="middle">"river"</text>
+    <rect x="208" y="126" width="100" height="26" rx="13" fill="none" stroke="#888"/><text x="258" y="143" text-anchor="middle">"happy"</text>
+    <rect x="208" y="160" width="100" height="26" rx="13" fill="none" stroke="#888"/><text x="258" y="177" text-anchor="middle">"run"</text>
+    <rect x="208" y="194" width="100" height="26" rx="13" fill="none" stroke="#888"/><text x="258" y="211" text-anchor="middle">"law"</text>
+  </g>
+  <text x="258" y="240" text-anchor="middle" font-size="10.5" fill="#9aa0a6">words both models know</text>
+
+  <!-- arrow to relative rep -->
+  <line x1="312" y1="156" x2="358" y2="156" stroke="#888" stroke-width="2" marker-end="url(#ra)"/>
+  <text x="335" y="146" text-anchor="middle" font-size="9.5" fill="#9aa0a6">similarity</text>
+
+  <!-- ===== 3. relative representation ===== -->
+  <rect x="362" y="100" width="118" height="112" rx="10" fill="#e08e4515" stroke="#e08e45" stroke-width="2"/>
+  <text x="421" y="120" text-anchor="middle" font-size="12.5" font-weight="700" fill="#e08e45">relative</text>
+  <text x="421" y="135" text-anchor="middle" font-size="12.5" font-weight="700" fill="#e08e45">representation</text>
+  <!-- fingerprint bars -->
+  <g fill="#e08e45">
+    <rect x="384" y="150" width="12" height="40"/>
+    <rect x="402" y="160" width="12" height="30"/>
+    <rect x="420" y="146" width="12" height="44"/>
+    <rect x="438" y="168" width="12" height="22"/>
+    <rect x="456" y="156" width="12" height="34"/>
+  </g>
+  <text x="421" y="230" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e08e45">model-agnostic</text>
+  <text x="421" y="246" text-anchor="middle" font-size="10.5" fill="#9aa0a6">"task semantics"</text>
+
+  <!-- arrow to Model B -->
+  <line x1="484" y1="156" x2="540" y2="156" stroke="#888" stroke-width="2" marker-end="url(#ra)"/>
+  <text x="512" y="146" text-anchor="middle" font-size="9.5" fill="#9aa0a6">search</text>
+
+  <!-- ===== 4. target prompt in Model B ===== -->
+  <rect x="544" y="92" width="120" height="150" rx="10" fill="none" stroke="#888" stroke-opacity="0.5"/>
+  <text x="604" y="112" text-anchor="middle" font-size="13" font-weight="700" fill="#9aa0a6">Model B</text>
+  <path d="M604 150 l5.4 11 12.1 1.8 -8.7 8.5 2 12 -10.8 -5.7 -10.8 5.7 2 -12 -8.7 -8.5 12.1 -1.8 z" fill="#e08e45" stroke="#e08e45"/>
+  <text x="604" y="210" text-anchor="middle" font-size="11" fill="#e08e45">matching prompt ★</text>
+  <text x="604" y="228" text-anchor="middle" font-size="10.5" fill="#9aa0a6">(no tuning needed)</text>
+
+  <!-- footnote -->
+  <text x="360" y="318" text-anchor="middle" font-size="12.5" fill="#9aa0a6">Same relations to the same words ⇒ the task carries across models —</text>
+  <text x="360" y="337" text-anchor="middle" font-size="12.5" fill="#9aa0a6">and blending several source models transfers even better.</text>
+</svg>
