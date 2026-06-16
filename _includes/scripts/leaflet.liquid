@@ -4,23 +4,17 @@
     integrity="{{ site.third_party_libraries.leaflet.integrity.js }}"
     crossorigin=""
   ></script>
-  <!-- Hide the raw GeoJSON source immediately so it never flashes before the map renders -->
-  <style>
-    pre:has(> code.language-geojson) {
-      display: none;
-    }
-  </style>
   <script>
-    /* Create leaflet map as another node and hide the code block, appending the leaflet node after it */
+    /* Render maps from GeoJSON embedded in non-displayed <script type="application/geo+json">
+       tags. Using a script tag (instead of a visible code block) means the data is never
+       rendered, so there is nothing to flash before the map appears. */
     const renderGeoJsonMaps = () => {
-      document.querySelectorAll('pre>code.language-geojson').forEach((elem) => {
+      document.querySelectorAll('script[type="application/geo+json"]').forEach((elem) => {
           const jsonData = elem.textContent;
-          const backup = elem.parentElement;
-          backup.classList.add('unloaded');
           /* create leaflet node */
           let mapElement = document.createElement('div');
           mapElement.classList.add('map');
-          backup.after(mapElement);
+          elem.after(mapElement);
 
           const worldBounds = [
             [-85, -180],

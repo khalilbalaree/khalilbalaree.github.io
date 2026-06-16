@@ -22,7 +22,7 @@ A map of places I've traveled to. Click a pin to see where it is.
   The cities below are starter examples — edit them to match your own travels.
 -->
 
-```geojson
+<script type="application/geo+json">
 {
   "type": "FeatureCollection",
   "features": [
@@ -122,4 +122,4 @@ A map of places I've traveled to. Click a pin to see where it is.
       "geometry": { "type": "Point", "coordinates": [135.5023, 34.6937] } }
   ]
 }
-```
+</script>
