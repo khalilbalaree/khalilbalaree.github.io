@@ -934,6 +934,24 @@ html.transition *:after {
       }
     }
   }
+
+  /* A bit more breathing room between blog-post content sections (incl. the References
+     heading, which sits just outside the article as a direct child of .post). Scoped to
+     article.post-content so the about page's plain <article> is unaffected. */
+  article.post-content h2:not(.bibliography),
+  > h2 {
+    margin-top: 1.25rem;
+  }
+
+  article.post-content h3 {
+    margin-top: 1rem;
+  }
+
+  /* Blog post references are cited in order, so drop the per-year group header
+     (the "20xx" label and its divider line) */
+  .publications.blog-references h2.bibliography {
+    display: none;
+  }
 }
 
 progress {
