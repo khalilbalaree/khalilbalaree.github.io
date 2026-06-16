@@ -86,6 +86,7 @@ selected_papers: false
 <section class="about-section">
   <h2 class="section-heading">Beyond Research</h2>
   <p class="beyond">Outside research, I enjoy snowboarding in winter, mountain biking and hiking in summer, and traveling year-round. I also have a British Shorthair cat named UA.</p>
+  <p style="margin-top: 0.9rem;"><a href="{{ '/travel/' | relative_url }}">See where I've traveled →</a></p>
 </section>
 
 </div>
