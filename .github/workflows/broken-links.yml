@@ -49,4 +49,4 @@ jobs:
         with:
           fail: true
           # removed md files that include liquid tags; scholar.google.com blocks automated checkers (403)
-          args: --user-agent 'curl/7.54' --exclude 'scholar\.google\.com' --exclude-path README.md --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _posts --verbose --no-progress './**/*.md' './**/*.html'
+          args: --user-agent 'curl/7.54' --exclude 'scholar\.google\.com' --exclude-path README.md --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _pages/about.md --exclude-path _posts --verbose --no-progress './**/*.md' './**/*.html'
