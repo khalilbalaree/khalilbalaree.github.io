@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" role="img" aria-label="Vanilla prompt tuning learns full-width prompt vectors; ULPT learns tiny low-dimensional vectors and expands them with a frozen random matrix, cutting trainable parameters by about 98 percent.">
+  <defs>
+    <marker id="ua" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#888"/>
+    </marker>
+  </defs>
+
+  <!-- titles -->
+  <text x="180" y="30" text-anchor="middle" font-size="17" font-weight="700" fill="#9aa0a6">Vanilla prompt tuning</text>
+  <text x="540" y="30" text-anchor="middle" font-size="17" font-weight="700" fill="#e08e45">ULPT</text>
+
+  <!-- divider -->
+  <line x1="360" y1="52" x2="360" y2="350" stroke="#888" stroke-opacity="0.3" stroke-dasharray="4 5"/>
+
+  <!-- ===== LEFT: vanilla — full-width trainable vectors ===== -->
+  <g fill="#88888833" stroke="#888">
+    <rect x="40" y="76" width="280" height="20" rx="4"/>
+    <rect x="40" y="104" width="280" height="20" rx="4"/>
+    <rect x="40" y="132" width="280" height="20" rx="4"/>
+  </g>
+  <text x="180" y="178" text-anchor="middle" font-size="12" fill="#9aa0a6">each prompt vector spans the</text>
+  <text x="180" y="196" text-anchor="middle" font-size="12" fill="#9aa0a6">model's full width (d ≈ thousands)</text>
+  <text x="180" y="250" text-anchor="middle" font-size="13.5" font-weight="600" fill="#9aa0a6">trainable params = N × d</text>
+  <text x="180" y="300" text-anchor="middle" font-size="11.5" fill="#9aa0a6">all of it is learned</text>
+
+  <!-- ===== RIGHT: ULPT — tiny trainable vectors + frozen up-projection ===== -->
+  <!-- tiny 2D trainable vectors -->
+  <g fill="#e08e4533" stroke="#e08e45">
+    <rect x="412" y="76" width="22" height="20" rx="4"/>
+    <rect x="412" y="104" width="22" height="20" rx="4"/>
+    <rect x="412" y="132" width="22" height="20" rx="4"/>
+  </g>
+  <text x="423" y="170" text-anchor="middle" font-size="11.5" fill="#e08e45">train tiny</text>
+  <text x="423" y="186" text-anchor="middle" font-size="11.5" fill="#e08e45">r-dim (≈2)</text>
+
+  <!-- frozen random matrix box -->
+  <line x1="436" y1="114" x2="470" y2="114" stroke="#888" stroke-width="2" marker-end="url(#ua)"/>
+  <rect x="472" y="92" width="56" height="44" rx="8" fill="none" stroke="#888" stroke-width="2"/>
+  <text x="500" y="112" text-anchor="middle" font-size="15" font-weight="700" fill="#9aa0a6">R</text>
+  <text x="500" y="127" text-anchor="middle" font-size="9" fill="#9aa0a6">❄ frozen</text>
+
+  <!-- expanded full-width vectors (faded, not trained) -->
+  <line x1="530" y1="114" x2="560" y2="114" stroke="#888" stroke-width="2" marker-end="url(#ua)"/>
+  <g fill="#88888822" stroke="#888" stroke-opacity="0.5" stroke-dasharray="3 3">
+    <rect x="562" y="88" width="120" height="16" rx="4"/>
+    <rect x="562" y="108" width="120" height="16" rx="4"/>
+    <rect x="562" y="128" width="120" height="16" rx="4"/>
+  </g>
+  <text x="540" y="190" text-anchor="middle" font-size="11.5" fill="#9aa0a6">a frozen random matrix expands</text>
+  <text x="540" y="206" text-anchor="middle" font-size="11.5" fill="#9aa0a6">them to full width — for free</text>
+  <text x="540" y="250" text-anchor="middle" font-size="13.5" font-weight="600" fill="#e08e45">trainable params = N × r</text>
+  <text x="540" y="300" text-anchor="middle" font-size="13" font-weight="700" fill="#e08e45">≈ 98% fewer to train</text>
+</svg>
