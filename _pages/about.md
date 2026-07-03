@@ -60,7 +60,7 @@ selected_papers: false
         <span class="ti-title">Machine Learning Researcher Intern</span>
         <span class="ti-date">2026</span>
       </div>
-      <div class="ti-place">RBC Borealis AI, Vancouver</div>
+      <div class="ti-place">RBC Borealis, Vancouver</div>
     </div>
     <div class="timeline-item">
       <div class="ti-header">
