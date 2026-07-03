@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" role="img" aria-label="A continuous prompt tuned in one model's embedding space is meaningless when copied directly into another model, whose embedding space has a different geometry.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 285" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" role="img" aria-label="A continuous prompt tuned in one model's embedding space is meaningless when copied directly into another model, whose embedding space has a different geometry.">
   <defs>
     <marker id="ca" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0 0 L10 5 L0 10 z" fill="#888"/>
@@ -18,17 +18,18 @@
   <circle cx="175" cy="160" r="3.5" fill="#888"/>
   <circle cx="210" cy="195" r="3.5" fill="#888"/>
   <circle cx="140" cy="135" r="3.5" fill="#888"/>
+  <circle cx="230" cy="150" r="3.5" fill="#888"/>
   <!-- the tuned prompt -->
   <path d="M170 120 l5.9 12 13.2 1.9 -9.5 9.3 2.2 13.1 -11.8 -6.2 -11.8 6.2 2.2 -13.1 -9.5 -9.3 13.2 -1.9 z" fill="#e08e45" stroke="#e08e45"/>
   <text x="160" y="245" text-anchor="middle" font-size="11" fill="#e08e45">prompt tuned here ★</text>
 
-  <!-- copy arrow -->
+  <!-- copy arrow, crossed out -->
   <line x1="286" y1="150" x2="430" y2="150" stroke="#888" stroke-width="2" marker-end="url(#ca)"/>
-  <text x="358" y="140" text-anchor="middle" font-size="12" fill="#9aa0a6">copy the vectors as-is</text>
-  <!-- big X over arrow -->
-  <g stroke="#c0392b" stroke-width="3" stroke-linecap="round">
-    <line x1="349" y1="158" x2="367" y2="176"/>
-    <line x1="367" y1="158" x2="349" y2="176"/>
+  <text x="358" y="132" text-anchor="middle" font-size="12" fill="#9aa0a6">copy the vectors as-is</text>
+  <!-- big X across the arrow -->
+  <g stroke="#d9534f" stroke-width="3" stroke-linecap="round">
+    <line x1="349" y1="141" x2="367" y2="159"/>
+    <line x1="367" y1="141" x2="349" y2="159"/>
   </g>
 
   <!-- ===== Model B space ===== -->
@@ -41,7 +42,8 @@
   <circle cx="600" cy="150" r="3.5" fill="#888"/>
   <circle cx="565" cy="205" r="3.5" fill="#888"/>
   <circle cx="620" cy="190" r="3.5" fill="#888"/>
+  <circle cx="585" cy="125" r="3.5" fill="#888"/>
   <!-- the pasted prompt lands in nonsense location -->
-  <path d="M515 130 l5.9 12 13.2 1.9 -9.5 9.3 2.2 13.1 -11.8 -6.2 -11.8 6.2 2.2 -13.1 -9.5 -9.3 13.2 -1.9 z" fill="none" stroke="#c0392b" stroke-dasharray="3 3"/>
-  <text x="560" y="245" text-anchor="middle" font-size="11" fill="#c0392b">lands on nonsense ✗</text>
+  <path d="M515 130 l5.9 12 13.2 1.9 -9.5 9.3 2.2 13.1 -11.8 -6.2 -11.8 6.2 2.2 -13.1 -9.5 -9.3 13.2 -1.9 z" fill="none" stroke="#d9534f" stroke-dasharray="3 3"/>
+  <text x="560" y="245" text-anchor="middle" font-size="11" fill="#d9534f">lands on nonsense ✗</text>
 </svg>
