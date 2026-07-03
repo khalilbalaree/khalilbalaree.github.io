@@ -3,8 +3,7 @@ layout: post
 title: "Carrying a soft prompt from one model to another"
 date: 2026-06-14
 description: Describing a soft prompt by what it's near, so its task semantics carry across different language models.
-tags: [llm, prompt-tuning, transfer, nlp, research]
-categories: [research]
+tags: [llm, prompt-tuning, transfer]
 related_publications: true
 ---
 
