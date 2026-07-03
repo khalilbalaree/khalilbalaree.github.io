@@ -1782,15 +1782,10 @@ swiper-container {
     }
 
     .blog-tag {
-      padding: 0.12rem 0.6rem;
-      border-radius: 50rem;
-      background-color: var(--global-code-bg-color);
       color: var(--global-text-color-light);
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       text-decoration: none;
-      transition:
-        color 0.2s ease,
-        background-color 0.2s ease;
+      transition: color 0.2s ease;
 
       &::before {
         content: "#";
@@ -1798,8 +1793,7 @@ swiper-container {
       }
 
       &:hover {
-        color: $white-color;
-        background-color: var(--global-theme-color);
+        color: var(--global-theme-color);
       }
     }
   }

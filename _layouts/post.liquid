@@ -33,10 +33,10 @@ layout: default
         &nbsp; &middot; &nbsp;
         {% for tag in page.tags %}
           {% if url_beginning == '/blog/' %}
-            <a href="{{ tag | slugify | prepend: '/blog/tag/' | prepend: site.baseurl}}"> <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>
+            <a href="{{ tag | slugify | prepend: '/blog/tag/' | prepend: site.baseurl}}">#{{ tag }}</a>
             &nbsp;
           {% else %}
-            <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }} &nbsp;
+            #{{ tag }} &nbsp;
           {% endif %}
         {% endfor %}
       {% endif %}
@@ -45,12 +45,10 @@ layout: default
         &nbsp; &middot; &nbsp;
         {% for category in page.categories %}
           {% if url_beginning == '/blog/' %}
-            <a href="{{ category | slugify | prepend: '/blog/category/' | prepend: site.baseurl}}">
-              <i class="fa-solid fa-tag fa-sm"></i> {{ category -}}
-            </a>
+            <a href="{{ category | slugify | prepend: '/blog/category/' | prepend: site.baseurl}}">{{ category -}}</a>
             &nbsp;
           {% else %}
-            <i class="fa-solid fa-tag fa-sm"></i> {{ category }} &nbsp;
+            {{ category }} &nbsp;
           {% endif %}
         {% endfor %}
       {% endif %}
