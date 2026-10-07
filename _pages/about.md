@@ -57,7 +57,7 @@ selected_papers: false
   <div class="timeline">
     <div class="timeline-item">
       <div class="ti-header">
-        <span class="ti-title">Machine Learning Researcher Intern</span>
+        <span class="ti-title">Machine Learning Researcher</span>
         <span class="ti-date">2026</span>
       </div>
       <div class="ti-place">RBC Borealis, Vancouver</div>
@@ -72,6 +72,7 @@ selected_papers: false
     <div class="timeline-item">
       <div class="ti-header">
         <span class="ti-title">Teaching Assistant</span>
+        <span class="ti-date">2020 – 2023</span>
       </div>
       <div class="ti-place">University of Alberta</div>
       <ul class="ti-courses">
