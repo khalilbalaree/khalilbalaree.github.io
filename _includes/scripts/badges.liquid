@@ -1,4 +1,4 @@
-{% if site.enable_publication_badges.altmetric %}
+{% if site.enable_publication_badges.altmetric and page.url contains '/publications' %}
   <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
 {% endif %}
 {% if site.enable_publication_badges.dimensions %}

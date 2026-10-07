@@ -72,7 +72,6 @@ selected_papers: false
     <div class="timeline-item">
       <div class="ti-header">
         <span class="ti-title">Teaching Assistant</span>
-        <span class="ti-date">2020 – 2023</span>
       </div>
       <div class="ti-place">University of Alberta</div>
       <ul class="ti-courses">
