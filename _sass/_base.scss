@@ -501,7 +501,7 @@ body.sticky-bottom-footer {
 .site-footer {
   flex-shrink: 0;
   margin-top: 4.5rem;
-  padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+  padding-bottom: 2rem;
   text-align: center;
 
   .container::before {
@@ -1429,21 +1429,20 @@ swiper-container {
   // Vertical timeline for education & experience
   .timeline {
     @extend %flat-panel;
-    --timeline-gutter: 2em;
-    --timeline-line-left: 1em;
+    --timeline-gutter: 2rem;
     --timeline-dot-size: 11px;
-    --timeline-pad-x: 1.25rem;
-    --timeline-pad-y: 1.1rem;
 
     position: relative;
-    padding: var(--timeline-pad-y) var(--timeline-pad-x);
+    padding: 1.1rem 1.25rem;
 
+    // The line sits at padding-left + half the gutter, from the first dot to the last.
+    // Plain values only: the deploy minifier breaks var()/env() inside calc().
     &::before {
       content: "";
       position: absolute;
-      left: calc(var(--timeline-pad-x) + var(--timeline-line-left));
-      top: calc(var(--timeline-pad-y) + 0.45rem);
-      bottom: calc(var(--timeline-pad-y) + 0.45rem);
+      left: 2.25rem;
+      top: 1.55rem;
+      bottom: 1.55rem;
       width: 2px;
       transform: translateX(-50%);
       background-color: var(--global-divider-color);
@@ -1701,8 +1700,13 @@ swiper-container {
 
   @media (max-width: 576px) {
     .timeline {
-      --timeline-pad-x: 1rem;
-      --timeline-pad-y: 0.95rem;
+      padding: 0.95rem 1rem;
+
+      &::before {
+        left: 2rem;
+        top: 1.4rem;
+        bottom: 1.4rem;
+      }
     }
 
     .beyond-layout {
