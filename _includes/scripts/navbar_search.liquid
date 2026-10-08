@@ -1,0 +1,310 @@
+<!-- Site search in the about-page header. Pages, blog posts and travel places come from
+     /assets/search.json; publications are read from the rendered /publications/ page so they
+     always match papers.bib. Styles live here because the result rows are only created at
+     runtime, so PurgeCSS (run on deploy) would strip them from main.css. -->
+<style>
+  .navbar-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 13rem;
+  }
+  /* The icon is placed against this box, so it stays inside the field at every width */
+  .navbar-search-field {
+    position: relative;
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+    min-width: 0;
+    margin: 0;
+  }
+  .navbar-search-icon {
+    position: absolute;
+    left: 0.75rem;
+    width: 0.95rem;
+    height: 0.95rem;
+    color: var(--global-text-color-light);
+    pointer-events: none;
+  }
+  #navbar-search-input {
+    flex: 1 1 0;
+    min-width: 0;
+    width: 100%;
+    height: 2.25rem;
+    padding: 0 0.85rem 0 2.15rem;
+    /* 16px keeps iOS Safari from zooming in on focus */
+    font-size: 16px;
+    color: var(--global-text-color);
+    background-color: var(--glass-card-bg);
+    border: 1px solid var(--glass-edge);
+    border-radius: 999px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+  #navbar-search-input::placeholder {
+    color: var(--global-text-color-light);
+    opacity: 1;
+  }
+  #navbar-search-input::-webkit-search-cancel-button {
+    display: none;
+  }
+  #navbar-search-input:focus {
+    border-color: var(--global-theme-color);
+    box-shadow: 0 0 0 3px var(--glass-edge);
+  }
+  .navbar-search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 28rem;
+    max-width: 80vw;
+    max-height: 60vh;
+    margin-top: 0.85rem;
+    padding: 0.4rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* Solid, not frosted: a backdrop blur nested inside the blurred pill can't see the page
+       behind it, so the text underneath would show through */
+    background-color: var(--global-bg-color);
+    border: 1px solid var(--glass-edge);
+    border-radius: 1.25rem;
+    box-shadow: var(--glass-pill-shadow);
+    text-align: left;
+  }
+  .navbar-search-results[hidden] {
+    display: none;
+  }
+  .navbar.navbar-light .navbar-search-item {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.85rem;
+    color: var(--global-text-color);
+  }
+  .navbar-search-item.is-active {
+    background-color: var(--glass-card-bg);
+    box-shadow: inset 0 0 0 1px var(--glass-edge);
+  }
+  .navbar.navbar-light .navbar-search-item.is-active .navbar-search-title {
+    color: var(--global-theme-color);
+  }
+  .navbar-search-title,
+  .navbar-search-sub {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .navbar-search-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  .navbar-search-sub {
+    font-size: 0.8rem;
+    color: var(--global-text-color-light);
+  }
+  .navbar-search-empty {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+    color: var(--global-text-color-light);
+  }
+  @media (max-width: 575.98px) {
+    /* A bit narrower than the row (shrinks further on very small phones); the results still
+       span the whole pill */
+    .navbar-search {
+      position: static;
+      flex: 0 1 15rem;
+      width: auto;
+      min-width: 0;
+      margin-right: 0.75rem;
+    }
+    .navbar-search-results {
+      right: 0;
+      width: auto;
+      max-width: none;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const form = document.querySelector('.navbar-search');
+    if (!form) return;
+    const input = form.querySelector('input');
+    const panel = form.querySelector('.navbar-search-results');
+    const pubsUrl = {{ '/publications/' | relative_url | jsonify }};
+    const indexUrl = {{ '/assets/search.json' | relative_url | jsonify }};
+    const typeOrder = { Publication: 0, Blog: 1, Page: 2, Travel: 3 };
+    const maxResults = 8;
+    let loading = null;
+    let rows = [];
+    let active = -1;
+
+    const fold = (s) =>
+      (s || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '');
+    const clean = (el) => (el ? el.textContent.replace(/\s+/g, ' ').trim() : '');
+
+    // Read the publication cards from the rendered publications page
+    const parsePubs = (html) => {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      return [...doc.querySelectorAll('.publication-card')].map((card) => {
+        const body = card.querySelector('[id]');
+        const authors = clean(card.querySelector('.author'));
+        const venue = [clean(card.querySelector('.venue-pill')), clean(card.querySelector('.pub-year'))].filter(Boolean).join(' ');
+        return {
+          type: 'Publication',
+          title: clean(card.querySelector('.title')),
+          url: body ? `${pubsUrl}#${encodeURIComponent(body.id)}` : pubsUrl,
+          sub: [venue, authors].filter(Boolean).join(' · '),
+          text: [clean(card.querySelector('.periodical')), clean(card.querySelector('.abstract'))].join(' '),
+        };
+      });
+    };
+
+    const load = () =>
+      (loading ||= Promise.all([
+        fetch(indexUrl)
+          .then((r) => r.json())
+          .catch(() => []),
+        fetch(pubsUrl)
+          .then((r) => r.text())
+          .then(parsePubs)
+          .catch(() => []),
+      ]).then(([site, pubs]) =>
+        [...pubs, ...site].map((item) => ({
+          ...item,
+          titleKey: fold(item.title),
+          key: fold(`${item.title} ${item.type} ${item.sub} ${item.text}`),
+        }))
+      ));
+
+    // Every word must match somewhere; title hits rank above body hits
+    const search = (items, query) => {
+      const q = fold(query).trim();
+      const words = q.split(/\s+/).filter(Boolean);
+      if (!words.length) return null;
+      const rank = (item) => {
+        if (item.titleKey.startsWith(q)) return 0;
+        if (item.titleKey.includes(q)) return 1;
+        if (words.every((w) => item.titleKey.includes(w))) return 2;
+        return 3;
+      };
+      return items
+        .filter((item) => words.every((w) => item.key.includes(w)))
+        .map((item) => ({ item, rank: rank(item) }))
+        .sort((a, b) => a.rank - b.rank || typeOrder[a.item.type] - typeOrder[b.item.type])
+        .slice(0, maxResults)
+        .map((r) => r.item);
+    };
+
+    const setActive = (i) => {
+      if (rows[active]) rows[active].classList.remove('is-active');
+      active = i;
+      if (rows[active]) {
+        rows[active].classList.add('is-active');
+        rows[active].scrollIntoView({ block: 'nearest' });
+        input.setAttribute('aria-activedescendant', rows[active].id);
+      } else {
+        input.removeAttribute('aria-activedescendant');
+      }
+    };
+
+    const close = () => {
+      panel.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+      setActive(-1);
+    };
+
+    const render = (results) => {
+      rows = [];
+      active = -1;
+      input.removeAttribute('aria-activedescendant');
+      panel.replaceChildren();
+      if (!results) return close();
+      if (!results.length) {
+        const empty = document.createElement('div');
+        empty.className = 'navbar-search-empty';
+        empty.textContent = 'No results';
+        panel.append(empty);
+      }
+      results.forEach((item, i) => {
+        const row = document.createElement('a');
+        row.className = 'navbar-search-item';
+        row.id = `navbar-search-option-${i}`;
+        row.href = item.url;
+        row.setAttribute('role', 'option');
+        const title = document.createElement('span');
+        title.className = 'navbar-search-title';
+        title.textContent = item.title;
+        const sub = document.createElement('span');
+        sub.className = 'navbar-search-sub';
+        sub.textContent = [item.type, item.sub].filter(Boolean).join(' · ');
+        row.append(title, sub);
+        panel.append(row);
+        rows.push(row);
+      });
+      panel.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+    };
+
+    let pending = 0;
+    const update = async () => {
+      const ticket = ++pending;
+      const items = await load();
+      if (ticket === pending) render(search(items, input.value));
+    };
+
+    input.addEventListener('focus', () => {
+      load();
+      if (input.value.trim()) update();
+    });
+    input.addEventListener('input', update);
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        if (!rows.length) return;
+        event.preventDefault();
+        const step = event.key === 'ArrowDown' ? 1 : -1;
+        setActive((active + step + rows.length) % rows.length);
+      } else if (event.key === 'Enter') {
+        event.preventDefault();
+        const target = rows[active] || rows[0];
+        if (target) window.location.href = target.href;
+      } else if (event.key === 'Escape') {
+        if (input.value) {
+          input.value = '';
+          close();
+        } else {
+          input.blur();
+        }
+      }
+    });
+
+    // Close on a tap or focus outside, and when the mobile menu opens
+    document.addEventListener('pointerdown', (event) => {
+      if (!form.contains(event.target)) close();
+    });
+    // Keep focus in the box while tapping a result (Safari doesn't focus links, so the box
+    // would blur and close the panel before the click lands)
+    panel.addEventListener('mousedown', (event) => event.preventDefault());
+    form.addEventListener('focusout', (event) => {
+      if (!form.contains(event.relatedTarget)) close();
+    });
+    document.querySelector('.navbar-toggler')?.addEventListener('click', close);
+
+    // "/" jumps to the search box
+    document.addEventListener('keydown', (event) => {
+      const target = event.target;
+      const typing = target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName);
+      if (event.key === '/' && !typing && !event.metaKey && !event.ctrlKey && !event.altKey) {
+        event.preventDefault();
+        input.focus();
+      }
+    });
+  })();
+</script>

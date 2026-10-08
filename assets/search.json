@@ -1,0 +1,28 @@
+---
+permalink: /assets/search.json
+sitemap: false
+---
+{%- comment -%}
+  Index for the search box in the about-page header (_includes/scripts/navbar_search.liquid).
+  Publications are read from the rendered /publications/ page instead, so they stay in sync
+  with papers.bib.
+{%- endcomment -%}
+{%- assign indexed_pages = '/,/publications/,/travel/' | split: ',' -%}
+[
+{%- for p in site.pages -%}
+  {%- if indexed_pages contains p.permalink -%}
+    {%- if p.permalink == '/' -%}{%- assign text = site.description -%}{%- else -%}{%- assign text = p.description -%}{%- endif -%}
+    {"type": "Page", "title": {{ p.title | capitalize | jsonify }}, "url": {{ p.permalink | relative_url | jsonify }}, "sub": "", "text": {{ text | strip_html | jsonify }}},
+  {%- endif -%}
+{%- endfor -%}
+{%- comment -%} The paginated blog index isn't in site.pages {%- endcomment -%}
+{"type": "Page", "title": "Blog", "url": {{ '/blog/' | relative_url | jsonify }}, "sub": "", "text": {{ site.blog_description | jsonify }}},
+{%- for post in site.posts -%}
+  {%- assign tags = post.tags | join: ' ' -%}
+  {"type": "Blog", "title": {{ post.title | strip_html | jsonify }}, "url": {{ post.url | relative_url | jsonify }}, "sub": {{ post.date | date: '%B %-d, %Y' | jsonify }}, "text": {{ post.description | append: ' ' | append: tags | strip_html | jsonify }}},
+{%- endfor -%}
+{%- for place in site.data.travel -%}
+  {"type": "Travel", "title": {{ place.name | jsonify }}, "url": {{ '/travel/' | relative_url | jsonify }}, "sub": {{ place.country | jsonify }}, "text": ""}
+  {%- unless forloop.last %},{% endunless -%}
+{%- endfor -%}
+]

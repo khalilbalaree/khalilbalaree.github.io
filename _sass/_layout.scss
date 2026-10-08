@@ -17,6 +17,11 @@ body {
   }
 }
 
+// Publication anchors (linked from the header search) clear the floating header too
+.publications .publication-card [id] {
+  scroll-margin-top: 84px;
+}
+
 body.fixed-top-nav {
   // Add some padding for the nav-bar.
   padding-top: 4.5rem;

@@ -24,6 +24,30 @@
         <!-- Social Icons -->
         <div class="navbar-brand social">{% include social.liquid %}</div>
       {% endif %}
+      {% if page.permalink == '/' %}
+        <!-- Site search (about page only) -->
+        <form class="navbar-search" role="search" autocomplete="off" onsubmit="return false">
+          <label class="navbar-search-field">
+            <svg class="navbar-search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+              <circle cx="7" cy="7" r="4.75" />
+              <path d="M10.5 10.5L14 14" />
+            </svg>
+            <input
+              type="search"
+              id="navbar-search-input"
+              placeholder="Search"
+              aria-label="Search the site"
+              role="combobox"
+              aria-expanded="false"
+              aria-controls="navbar-search-results"
+              aria-autocomplete="list"
+              enterkeyhint="search"
+              spellcheck="false"
+            >
+          </label>
+          <div class="navbar-search-results" id="navbar-search-results" role="listbox" hidden></div>
+        </form>
+      {% endif %}
       <!-- Navbar Toggle -->
       <button
         class="navbar-toggler collapsed ml-auto"
@@ -142,4 +166,7 @@
     </progress>
   {% endif %}
   {% include scripts/navbar_autohide.liquid %}
+  {% if page.permalink == '/' %}
+    {% include scripts/navbar_search.liquid %}
+  {% endif %}
 </header>
