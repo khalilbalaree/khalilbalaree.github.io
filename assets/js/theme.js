@@ -51,6 +51,12 @@ let applyTheme = () => {
 
   document.documentElement.setAttribute("data-theme", theme);
 
+  // Tint the browser UI (Safari status bar and toolbar) with the page background
+  let background = getComputedStyle(document.documentElement).getPropertyValue("--global-bg-color").trim();
+  if (background) {
+    document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => meta.setAttribute("content", background));
+  }
+
   // Add class to tables.
   let tables = document.getElementsByTagName("table");
   for (let i = 0; i < tables.length; i++) {
