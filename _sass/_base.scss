@@ -2090,19 +2090,6 @@ swiper-container {
  * Frosted glass
  ******************************************************************************/
 
-// Faint ambient glow behind the page so translucent surfaces have something to frost
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(42rem 32rem at 8% -4%, var(--glass-glow-1), transparent 70%),
-    radial-gradient(36rem 28rem at 100% 28%, var(--glass-glow-2), transparent 70%),
-    radial-gradient(40rem 30rem at 30% 105%, var(--glass-glow-3), transparent 70%);
-}
-
 @mixin frosted($blur: 16px) {
   -webkit-backdrop-filter: saturate(180%) blur($blur);
   backdrop-filter: saturate(180%) blur($blur);
