@@ -1743,6 +1743,29 @@ swiper-container {
  * Publications page polish (consistent with the about page)
  ******************************************************************************/
 
+// Year heading with a hairline running to the right edge; shared by the publications and
+// blog lists
+%year-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0;
+  border-top: 0;
+  color: var(--global-text-color-light);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: left;
+  opacity: 0.72;
+
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: var(--global-divider-color);
+  }
+}
+
 .publications {
   ol.bibliography {
     li {
@@ -1876,25 +1899,8 @@ swiper-container {
   }
 
   h2.bibliography {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    @extend %year-divider;
     margin: 2.25rem 0 1rem;
-    padding-top: 0;
-    border-top: 0;
-    color: var(--global-text-color-light);
-    font-size: 1.35rem;
-    font-weight: 700;
-    line-height: 1;
-    text-align: left;
-    opacity: 0.72;
-
-    &::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background-color: var(--global-divider-color);
-    }
   }
 }
 
@@ -1911,18 +1917,22 @@ swiper-container {
     margin-bottom: 2.25rem;
   }
 
-  .blog-subtitle {
-    margin-bottom: 0;
-    color: var(--global-text-color-light);
-    font-size: 1.05rem;
-    line-height: 1.55;
-  }
-
   // Card list
   .blog-list {
     display: flex;
     flex-direction: column;
-    gap: 1.1rem;
+    gap: 1rem;
+  }
+
+  // Same year divider and spacing as the publications page: 16px down to the first card,
+  // 36px up from the previous year's last card (1rem of that is the list gap)
+  .blog-year {
+    @extend %year-divider;
+    margin: 1.25rem 0 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   .blog-card {
@@ -2133,7 +2143,7 @@ swiper-container {
     background-image: var(--glass-pill-sheen);
     // Bright top edge, like light catching the rim of the glass
     box-shadow: inset 0 1px 0 var(--glass-border);
-    @include frosted(24px);
+    @include frosted(16px);
     pointer-events: none;
   }
 

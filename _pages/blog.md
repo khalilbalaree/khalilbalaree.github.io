@@ -16,9 +16,6 @@ pagination:
 <div class="blog-page">
   <header class="post-header blog-header">
     <h1 class="post-title page-title">{{ site.blog_name }}</h1>
-    {% if site.blog_description %}
-      <p class="blog-subtitle">{{ site.blog_description }}</p>
-    {% endif %}
   </header>
 
   {% if site.pagination.enabled %}
@@ -31,9 +28,14 @@ pagination:
     <p class="blog-empty">No posts yet — check back soon.</p>
   {% else %}
     <div class="blog-list">
+      {% assign last_year = '' %}
       {% for post in postlist %}
         {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
         {% assign year = post.date | date: '%Y' %}
+        {% if year != last_year %}
+          <h2 class="blog-year">{{ year }}</h2>
+          {% assign last_year = year %}
+        {% endif %}
 
         {% if post.redirect contains '://' %}
           {% assign post_url = post.redirect %}
