@@ -2100,7 +2100,20 @@ swiper-container {
   opacity: 1;
   background-color: var(--glass-bar-bg);
   border-bottom-color: var(--glass-edge);
-  @include frosted(18px);
+  @include frosted(20px);
+}
+
+// Floating pill header: inset from the edges, as wide as the content column; content
+// scrolling underneath shows through the frosted glass
+.navbar.fixed-top {
+  left: 1rem;
+  right: 1rem;
+  max-width: $max-content-width;
+  margin: 0.75rem auto 0;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--glass-edge);
+  border-radius: 999px;
+  box-shadow: var(--glass-shadow);
 }
 
 .navbar .dropdown-menu {
@@ -2392,5 +2405,13 @@ swiper-container {
   .navbar .navbar-collapse.show,
   .navbar .navbar-collapse.collapsing {
     padding-bottom: 0.5rem;
+  }
+
+  // A full pill looks wrong once the menu expands
+  .navbar.fixed-top {
+    left: 0.75rem;
+    right: 0.75rem;
+    margin-top: 0.5rem;
+    border-radius: 18px;
   }
 }
