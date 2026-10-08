@@ -1,0 +1,76 @@
+{% if site.navbar_fixed %}
+  <!-- Auto-hiding header: hides after a short delay while scrolling down, shows at once on
+       scroll up. Styles live here because navbar-hidden is only added at runtime, so PurgeCSS
+       (run on deploy) would strip it from main.css. -->
+  <style>
+    /* Showing: immediate and quick (a transition takes the timing of the state it moves to) */
+    #navbar {
+      transition:
+        transform 0.15s ease-out,
+        box-shadow 0.15s ease-out;
+    }
+    /* Hiding: waits, then slides away; scrolling up during the wait cancels it.
+       -150% clears the pill's top margin so no edge peeks out. */
+    #navbar.navbar-hidden {
+      transform: translateY(-150%);
+      box-shadow: none;
+      transition:
+        transform 0.3s ease-in 0.6s,
+        box-shadow 0.3s ease-in 0.6s;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #navbar,
+      #navbar.navbar-hidden {
+        transition: none;
+      }
+    }
+  </style>
+
+  <script>
+    (() => {
+      const navbar = document.getElementById('navbar');
+      if (!navbar) return;
+      const menu = document.getElementById('navbarNav');
+      const hideAfter = 6; // px scrolled down before hiding
+      const showAfter = 2; // px scrolled up before showing
+      let lastY = window.scrollY;
+      let hidden = false;
+      let ticking = false;
+
+      const setHidden = (hide) => {
+        if (hide === hidden) return;
+        hidden = hide;
+        navbar.classList.toggle('navbar-hidden', hide);
+      };
+
+      const update = () => {
+        ticking = false;
+        const y = window.scrollY;
+        const menuOpen = menu && menu.classList.contains('show');
+        if (y <= navbar.offsetHeight || menuOpen || navbar.contains(document.activeElement)) {
+          setHidden(false);
+          lastY = y;
+        } else if (y - lastY > hideAfter) {
+          setHidden(true);
+          lastY = y;
+        } else if (lastY - y > showAfter) {
+          setHidden(false);
+          lastY = y;
+        }
+      };
+
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+          }
+        },
+        { passive: true }
+      );
+      // Tabbing into a hidden bar brings it back
+      navbar.addEventListener('focusin', () => setHidden(false));
+    })();
+  </script>
+{% endif %}

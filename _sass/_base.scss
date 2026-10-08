@@ -321,6 +321,16 @@ ul.task-list input[type="checkbox"] {
 }
 
 .navbar-toggler {
+  // 40px tall like the brand link, so the header row is the same height on every page (the
+  // home page has no brand) and nothing shifts when the menu opens; bars sit flush right
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: 0;
+
   .icon-bar {
     display: block;
     width: 22px;
@@ -328,12 +338,17 @@ ul.task-list input[type="checkbox"] {
     background-color: var(--global-text-color);
     border-radius: 1px;
     margin-bottom: 4px;
+    transform-origin: center;
     transition: all 0.2s;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
+  // Open: the outer bars meet on the middle bar (6px apart) to form a centered X
   .top-bar {
-    transform: rotate(45deg);
-    transform-origin: 10% 10%;
+    transform: translateY(6px) rotate(45deg);
   }
 
   .middle-bar {
@@ -341,14 +356,13 @@ ul.task-list input[type="checkbox"] {
   }
 
   .bottom-bar {
-    transform: rotate(-45deg);
-    transform-origin: 10% 90%;
+    transform: translateY(-6px) rotate(-45deg);
   }
 }
 
 .navbar-toggler.collapsed {
   .top-bar {
-    transform: rotate(0);
+    transform: none;
   }
 
   .middle-bar {
@@ -356,11 +370,14 @@ ul.task-list input[type="checkbox"] {
   }
 
   .bottom-bar {
-    transform: rotate(0);
+    transform: none;
   }
 }
 
 #light-toggle {
+  // Flex so the button is exactly the icon's height and centers with the nav links
+  display: inline-flex;
+  align-items: center;
   padding: 0;
   border: 0;
   background-color: inherit;
@@ -2103,21 +2120,36 @@ swiper-container {
   @include frosted(20px);
 }
 
-// Floating pill header: inset from the edges, as wide as the content column; content
-// scrolling underneath shows through the frosted glass
+// Floating pill header: inset from the edges; content scrolling underneath shows through the
+// frosted glass. 12px wider than the content column so that, with the 20px inner inset (+1px
+// border), the brand and the last nav item line up with the page text below.
 .navbar.fixed-top {
   left: 1rem;
   right: 1rem;
-  max-width: $max-content-width;
+  max-width: $max-content-width + 12px;
   margin: 0.75rem auto 0;
-  padding: 0.35rem 0.5rem;
+  padding: 0.35rem 0;
   border: 1px solid var(--glass-edge);
   border-radius: 999px;
   box-shadow: var(--glass-shadow);
 
-  // Same height on every page: the home page has no brand link, only the menu toggle
+  // The site-wide .container cap (800px) would leave the inner row narrower than the pill
   > .container {
-    min-height: 2.5rem;
+    max-width: none;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+
+// Keep the theme toggle centered with the links
+@media (min-width: 576px) {
+  .navbar.fixed-top .navbar-nav {
+    align-items: center;
+  }
+
+  .navbar.fixed-top .toggle-container {
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -2411,12 +2443,31 @@ swiper-container {
   .navbar .navbar-collapse.collapsing {
     padding-bottom: 0.5rem;
   }
+}
 
+// Collapsed navbar (Bootstrap's navbar-expand-sm switches at 576px)
+@media (max-width: 575.98px) {
   // A full pill looks wrong once the menu expands
   .navbar.fixed-top {
     left: 0.75rem;
     right: 0.75rem;
     margin-top: 0.5rem;
     border-radius: 18px;
+
+    > .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  // Open menu: a hairline under the brand row, and every item ends on the same right edge
+  // as the menu button
+  .navbar .navbar-collapse {
+    border-top: 1px solid var(--glass-edge);
+    margin-top: 0.35rem;
+
+    .nav-link {
+      padding-right: 0;
+    }
   }
 }
