@@ -2122,13 +2122,15 @@ swiper-container {
   // (not an oval) when the mobile menu expands
   border-radius: 1.75rem;
   background: none;
-  box-shadow: var(--glass-pill-shadow);
+  box-shadow: none;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 
-  // The glass lives on a layer behind the content rather than on the bar itself. Safari
-  // stutters when it slides (auto-hide) an element that carries a backdrop blur, and a blurred
-  // bar would also stop the search results panel inside it from blurring the page.
+  // The glass (and its shadow) lives on a layer behind the content rather than on the bar
+  // itself. Safari stutters when it animates an element that carries a backdrop blur, a
+  // blurred bar would stop the search results panel inside it from blurring the page, and
+  // the auto-hide fades this layer and the content separately (fading the bar itself would
+  // cut the blur off from the page while it fades).
   &::before {
     content: "";
     position: absolute;
@@ -2142,7 +2144,9 @@ swiper-container {
     background-color: var(--glass-pill-bg);
     background-image: var(--glass-pill-sheen);
     // Bright top edge, like light catching the rim of the glass
-    box-shadow: inset 0 1px 0 var(--glass-border);
+    box-shadow:
+      inset 0 1px 0 var(--glass-border),
+      var(--glass-pill-shadow);
     @include frosted(16px);
     pointer-events: none;
   }

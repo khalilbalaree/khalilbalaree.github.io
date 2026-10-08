@@ -3,23 +3,37 @@
        scroll up. Styles live here because navbar-hidden is only added at runtime, so PurgeCSS
        (run on deploy) would strip it from main.css. -->
   <style>
-    /* Only transform is animated: it runs on the GPU, while animating the shadow under a
-       backdrop blur repaints every frame and makes the slide stutter on phones.
-       Showing: immediate and quick, easing out without a long creeping tail (a transition
-       takes the timing of the state it moves to). */
+    /* The bar never moves above the top edge of the screen: Safari on iOS paints the status
+       bar solid in the colour of a fixed element touching that edge, even while it is only
+       sliding through, instead of letting the page fade under it. So it fades and shrinks
+       slightly in place (its top edge stays put) rather than sliding up and down.
+       Showing: immediate and quick (a transition takes the timing of the state it moves to). */
     #navbar {
+      transform-origin: 50% 0;
       will-change: transform;
       transition: transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
-    /* Hiding: waits, then slides away; scrolling up during the wait cancels it.
-       -200% clears the pill's top margin and its shadow, so nothing peeks out. */
+    #navbar::before,
+    #navbar > .container {
+      transition: opacity 0.2s ease-out;
+    }
+    /* Hiding: waits, then fades away; scrolling up during the wait cancels it */
     #navbar.navbar-hidden {
-      transform: translateY(-200%);
-      transition: transform 0.3s ease-in 0.6s;
+      transform: scale(0.96);
+      transition: transform 0.25s ease-in 0.6s;
+    }
+    #navbar.navbar-hidden::before,
+    #navbar.navbar-hidden > .container {
+      opacity: 0;
+      transition: opacity 0.25s ease-in 0.6s;
     }
     @media (prefers-reduced-motion: reduce) {
       #navbar,
-      #navbar.navbar-hidden {
+      #navbar.navbar-hidden,
+      #navbar::before,
+      #navbar > .container,
+      #navbar.navbar-hidden::before,
+      #navbar.navbar-hidden > .container {
         transition: none;
       }
     }
@@ -32,21 +46,44 @@
       const menu = document.getElementById('navbarNav');
       const hideAfter = 6; // px scrolled down before hiding
       const showAfter = 2; // px scrolled up before showing
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let barHeight = navbar.offsetHeight;
       let lastY = window.scrollY;
       let hidden = false;
       let ticking = false;
 
+      // Once the bar has faded out it is taken out of the page (display: none), so the invisible
+      // bar can't catch taps or affect how Safari tints its status bar.
+      const park = () => {
+        if (hidden) navbar.style.display = 'none';
+      };
+
       const setHidden = (hide) => {
         if (hide === hidden) return;
         hidden = hide;
-        navbar.classList.toggle('navbar-hidden', hide);
+        if (hide) {
+          barHeight = navbar.offsetHeight;
+          navbar.classList.add('navbar-hidden');
+          if (reducedMotion.matches) park();
+        } else {
+          if (navbar.style.display === 'none') {
+            navbar.style.display = '';
+            // Lay it out in the hidden state first, so the fade-in animates from there
+            void navbar.offsetHeight;
+          }
+          navbar.classList.remove('navbar-hidden');
+        }
       };
+
+      navbar.addEventListener('transitionend', (event) => {
+        if (event.target === navbar && event.propertyName === 'transform') park();
+      });
 
       const update = () => {
         ticking = false;
         const y = window.scrollY;
         const menuOpen = menu && menu.classList.contains('show');
-        if (y <= navbar.offsetHeight || menuOpen || navbar.contains(document.activeElement)) {
+        if (y <= barHeight || menuOpen || navbar.contains(document.activeElement)) {
           setHidden(false);
           lastY = y;
         } else if (y - lastY > hideAfter) {
