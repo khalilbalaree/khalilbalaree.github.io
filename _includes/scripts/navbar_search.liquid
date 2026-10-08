@@ -215,6 +215,18 @@
       }
     };
 
+    // Keep the panel above the on-screen keyboard: the visual viewport shrinks when the keyboard
+    // opens (vh units don't), so cap the height to what's visible below the panel's top edge
+    const fitToViewport = () => {
+      const vv = window.visualViewport;
+      if (!vv || panel.hidden) return;
+      const visibleBottom = vv.offsetTop + vv.height;
+      const room = visibleBottom - panel.getBoundingClientRect().top - 12;
+      panel.style.maxHeight = `${Math.max(room, 120)}px`;
+    };
+    window.visualViewport?.addEventListener('resize', fitToViewport);
+    window.visualViewport?.addEventListener('scroll', fitToViewport);
+
     const close = () => {
       panel.hidden = true;
       input.setAttribute('aria-expanded', 'false');
@@ -251,6 +263,7 @@
       });
       panel.hidden = false;
       input.setAttribute('aria-expanded', 'true');
+      fitToViewport();
     };
 
     let pending = 0;
