@@ -25,7 +25,6 @@ let setThemeSetting = (themeSetting) => {
 let applyTheme = () => {
   let theme = determineComputedTheme();
 
-  transTheme();
   setHighlight(theme);
   setGiscusTheme(theme);
 
@@ -192,6 +191,9 @@ let setVegaLiteTheme = (theme) => {
   });
 };
 
+// Briefly animates every colour change while switching themes. Only used when the theme
+// changes on a live page (toggle button or system setting), never on page load, where it
+// would also animate the layout settling (e.g. the header search box growing to full width).
 let transTheme = () => {
   document.documentElement.classList.add("transition");
   window.setTimeout(() => {
@@ -235,12 +237,14 @@ let initTheme = () => {
     const mode_toggle = document.getElementById("light-toggle");
 
     mode_toggle.addEventListener("click", function () {
+      transTheme();
       toggleThemeSetting();
     });
   });
 
   // Add event listener to the system theme preference change.
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+    transTheme();
     applyTheme();
   });
 };
