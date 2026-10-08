@@ -14,8 +14,8 @@ pagination:
 ---
 
 <div class="blog-page">
-  <header class="blog-header">
-    <h1 class="blog-title">{{ site.blog_name }}</h1>
+  <header class="post-header blog-header">
+    <h1 class="post-title page-title">{{ site.blog_name }}</h1>
     {% if site.blog_description %}
       <p class="blog-subtitle">{{ site.blog_description }}</p>
     {% endif %}

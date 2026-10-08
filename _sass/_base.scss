@@ -1904,33 +1904,11 @@ swiper-container {
 
 .blog-page {
   clear: both;
-  margin-top: 1.5rem;
 
-  // Header with a subtle accent underline, matching .section-heading
+  // The title uses the shared .post-header .page-title style, so it sits at the same
+  // distance below the header as on every other page
   .blog-header {
     margin-bottom: 2.25rem;
-  }
-
-  .blog-title {
-    position: relative;
-    display: inline-block;
-    margin-top: 0;
-    margin-bottom: 1rem;
-    padding-bottom: 0.45rem;
-    font-size: 1.9rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 2.5rem;
-      height: 3px;
-      border-radius: 3px;
-      background-color: var(--global-theme-color);
-    }
   }
 
   .blog-subtitle {
