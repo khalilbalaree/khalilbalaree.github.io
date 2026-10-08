@@ -43,7 +43,7 @@ rss_icon: false
 # -----------------------------------------------------------------------------
 
 navbar_fixed: true
-footer_fixed: true
+footer_fixed: false
 
 # Dimensions
 max_width: 800px
@@ -490,6 +490,18 @@ third_party_libraries:
       js: "https://cdn.jsdelivr.net/npm/leaflet@{{version}}/dist/leaflet.js"
       js_map: "https://cdn.jsdelivr.net/npm/leaflet@{{version}}/dist/leaflet.js.map"
     version: "1.9.4"
+  topojson_client:
+    integrity:
+      js: "sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67"
+    url:
+      js: "https://cdn.jsdelivr.net/npm/topojson-client@{{version}}/dist/topojson-client.min.js"
+    version: "3.1.0"
+  world_atlas:
+    integrity:
+      json: "sha384-yOCJ+8ShBm8UDqtAVtAvxTDDf4gXo5edxl/YG0FmVC5OTmqVLl7utuVGBDEeZWHf"
+    url:
+      json: "https://cdn.jsdelivr.net/npm/world-atlas@{{version}}/countries-110m.json"
+    version: "2.0.2"
   mathjax:
     local:
       fonts: "output/chtml/fonts/woff-v2/"

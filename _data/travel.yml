@@ -1,0 +1,58 @@
+# Places shown on the travel page and the "Traveling" card on the about page.
+# Each place: name, country, and coords as [latitude, longitude].
+# "country" groups the place in the travel page list and feeds the country count;
+# use the common English name (e.g. "United States", "South Korea").
+
+- { name: Edmonton, country: Canada, coords: [53.5461, -113.4938] }
+- { name: Montreal, country: Canada, coords: [45.5019, -73.5674] }
+- { name: Toronto, country: Canada, coords: [43.6532, -79.3832] }
+- { name: Calgary, country: Canada, coords: [51.0447, -114.0719] }
+- { name: Banff, country: Canada, coords: [51.1784, -115.5708] }
+- { name: Jasper, country: Canada, coords: [52.8737, -118.0814] }
+- { name: Kelowna, country: Canada, coords: [49.888, -119.496] }
+- { name: Revelstoke, country: Canada, coords: [50.9981, -118.1953] }
+- { name: Vancouver, country: Canada, coords: [49.2827, -123.1207] }
+- { name: Seattle, country: United States, coords: [47.6062, -122.3321] }
+- { name: San Francisco, country: United States, coords: [37.7749, -122.4194] }
+- { name: Yosemite, country: United States, coords: [37.8651, -119.5383] }
+- { name: Los Angeles, country: United States, coords: [34.0522, -118.2437] }
+- { name: Las Vegas, country: United States, coords: [36.1699, -115.1398] }
+- { name: Salt Lake City, country: United States, coords: [40.7608, -111.891] }
+- { name: Idaho Falls, country: United States, coords: [43.4666, -112.0341] }
+- { name: Yellowstone, country: United States, coords: [44.428, -110.5885] }
+- { name: Denver, country: United States, coords: [39.7392, -104.9903] }
+- { name: Albuquerque, country: United States, coords: [35.0844, -106.6504] }
+- { name: Santa Fe, country: United States, coords: [35.687, -105.9378] }
+- { name: Chicago, country: United States, coords: [41.8781, -87.6298] }
+- { name: Buffalo, country: United States, coords: [42.8864, -78.8784] }
+- { name: Boston, country: United States, coords: [42.3601, -71.0589] }
+- { name: Honolulu, country: United States, coords: [21.3069, -157.8581] }
+- { name: São Paulo, country: Brazil, coords: [-23.5505, -46.6333] }
+- { name: Rio de Janeiro, country: Brazil, coords: [-22.9068, -43.1729] }
+- { name: Rabat, country: Morocco, coords: [34.0209, -6.8498] }
+- { name: Paris, country: France, coords: [48.8566, 2.3522] }
+- { name: Brussels, country: Belgium, coords: [50.8503, 4.3517] }
+- { name: Amsterdam, country: Netherlands, coords: [52.3676, 4.9041] }
+- { name: Vienna, country: Austria, coords: [48.2082, 16.3738] }
+- { name: St. Wolfgang, country: Austria, coords: [47.7395, 13.447] }
+- { name: Kigali, country: Rwanda, coords: [-1.9441, 30.0619] }
+- { name: Beijing, country: China, coords: [39.9042, 116.4074] }
+- { name: Shanghai, country: China, coords: [31.2304, 121.4737] }
+- { name: Qingdao, country: China, coords: [36.0671, 120.3826] }
+- { name: Nanjing, country: China, coords: [32.0603, 118.7969] }
+- { name: Hefei, country: China, coords: [31.8206, 117.2272] }
+- { name: Suzhou, country: China, coords: [31.2989, 120.5853] }
+- { name: Hangzhou, country: China, coords: [30.2741, 120.1551] }
+- { name: Huangshan, country: China, coords: [30.1333, 118.1667] }
+- { name: Xiamen, country: China, coords: [24.4798, 118.0894] }
+- { name: Dali, country: China, coords: [25.6065, 100.2676] }
+- { name: Erhai Lake, country: China, coords: [25.78, 100.19] }
+- { name: Haikou, country: China, coords: [20.044, 110.1999] }
+- { name: Sanya, country: China, coords: [18.2528, 109.5119] }
+- { name: Seoul, country: South Korea, coords: [37.5665, 126.978] }
+- { name: Tokyo, country: Japan, coords: [35.6895, 139.6917] }
+- { name: Kamakura, country: Japan, coords: [35.3192, 139.55] }
+- { name: Hakone, country: Japan, coords: [35.2324, 139.026] }
+- { name: Mt. Fuji, country: Japan, coords: [35.3606, 138.7274] }
+- { name: Kyoto, country: Japan, coords: [35.0116, 135.7681] }
+- { name: Osaka, country: Japan, coords: [34.6937, 135.5023] }

@@ -1,0 +1,119 @@
+{% assign travel_places = site.data.travel %}
+<a class="travel-card" href="{{ '/travel/' | relative_url }}">
+  <div class="travel-card-map">
+    <svg viewBox="0 0 360 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"></svg>
+  </div>
+  <div class="travel-card-body">
+    <span class="travel-card-title">Traveling</span>
+    <span class="travel-card-note">Year-round &middot; see the map <span class="card-arrow" aria-hidden="true">&rarr;</span></span>
+  </div>
+</a>
+
+<!-- SVG shape styles live here: the shapes are created by the script below, so PurgeCSS
+     (run on deploy) would not see these class names in the HTML. -->
+<style>
+  .travel-card-map .land {
+    fill: var(--map-land);
+    stroke: var(--map-border);
+    stroke-width: 0.35;
+  }
+  .travel-card-map .land.visited {
+    fill: var(--map-visited);
+  }
+  .travel-card-map .place {
+    fill: var(--global-theme-color);
+    stroke: var(--global-bg-color);
+    stroke-width: 0.8;
+  }
+</style>
+
+<script>
+  /* Draw a small world map into the card once it scrolls near the viewport: countries from
+     Natural Earth (the same cached files the travel page uses), visited ones tinted, plus a
+     dot per place. Mercator, cropped to latitudes -44..76 to match the 360x170 viewBox. */
+  (() => {
+    const svg = document.querySelector('.travel-card-map svg');
+    if (!svg || !('IntersectionObserver' in window) || !window.fetch) return;
+
+    const places = {{ travel_places | jsonify }};
+    // Place-list country names that are spelled differently in Natural Earth
+    const countryAliases = { 'United States': 'United States of America' };
+    const visited = new Set(places.map((p) => countryAliases[p.country] || p.country));
+
+    const width = 360;
+    const mercY = (lat) => Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360));
+    const top = mercY(76);
+    const scale = width / (2 * Math.PI);
+    const project = ([lng, lat]) => [((lng + 180) / 360) * width, (top - mercY(Math.max(-85, Math.min(85, lat)))) * scale];
+
+    // Rings crossing the 180° meridian (Russia, Fiji) would streak across the map; unwrap them
+    const unwrapRing = (ring) => {
+      let shift = 0;
+      return ring.map(([lng, lat], i) => {
+        const jump = i > 0 ? lng - ring[i - 1][0] : 0;
+        if (jump > 180) shift -= 360;
+        else if (jump < -180) shift += 360;
+        return [lng + shift, lat];
+      });
+    };
+    const ringPath = (ring) =>
+      unwrapRing(ring)
+        .map((point, i) => {
+          const [x, y] = project(point);
+          return `${i ? 'L' : 'M'}${x.toFixed(1)},${y.toFixed(1)}`;
+        })
+        .join('') + 'Z';
+
+    const loadScript = (src, integrity) =>
+      new Promise((resolve, reject) => {
+        if (window.topojson) return resolve();
+        const script = document.createElement('script');
+        script.src = src;
+        script.integrity = integrity;
+        script.crossOrigin = 'anonymous';
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+
+    const draw = (world) => {
+      const ns = 'http://www.w3.org/2000/svg';
+      const land = topojson.feature(world, world.objects.countries);
+      land.features.forEach(({ properties, geometry }) => {
+        if (!geometry || properties.name === 'Antarctica') return;
+        const polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
+        const path = document.createElementNS(ns, 'path');
+        path.setAttribute('d', polygons.map((poly) => poly.map(ringPath).join('')).join(''));
+        path.setAttribute('class', visited.has(properties.name) ? 'land visited' : 'land');
+        svg.appendChild(path);
+      });
+      places.forEach(({ coords }) => {
+        const [x, y] = project([coords[1], coords[0]]);
+        const dot = document.createElementNS(ns, 'circle');
+        dot.setAttribute('cx', x.toFixed(1));
+        dot.setAttribute('cy', y.toFixed(1));
+        dot.setAttribute('r', '2.4');
+        dot.setAttribute('class', 'place');
+        svg.appendChild(dot);
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        loadScript('{{ site.third_party_libraries.topojson_client.url.js }}', '{{ site.third_party_libraries.topojson_client.integrity.js }}')
+          .then(() =>
+            fetch('{{ site.third_party_libraries.world_atlas.url.json }}', {
+              integrity: '{{ site.third_party_libraries.world_atlas.integrity.json }}',
+            })
+          )
+          .then((response) => response.json())
+          .then(draw)
+          .catch(() => {});
+      },
+      { rootMargin: '300px' }
+    );
+    observer.observe(svg);
+  })();
+</script>

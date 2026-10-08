@@ -4,48 +4,317 @@
     integrity="{{ site.third_party_libraries.leaflet.integrity.js }}"
     crossorigin=""
   ></script>
+  <script
+    src="{{ site.third_party_libraries.topojson_client.url.js }}"
+    integrity="{{ site.third_party_libraries.topojson_client.integrity.js }}"
+    crossorigin="anonymous"
+  ></script>
+  <!-- Map styles live here rather than in main.css: Leaflet creates its elements at
+       runtime, so PurgeCSS (run on deploy) would strip these selectors from main.css. -->
+  <style>
+    .travel-map {
+      margin-top: 1.25rem;
+    }
+    .travel-map .map {
+      height: 460px;
+      border: 1px solid var(--glass-edge);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow:
+        inset 0 1px 0 var(--glass-border),
+        var(--glass-shadow);
+    }
+    .travel-map .leaflet-container {
+      background: var(--map-ocean);
+      font-family: inherit;
+    }
+    .travel-map .leaflet-bar {
+      border: 1px solid var(--glass-edge);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--glass-shadow);
+    }
+    .travel-map .leaflet-bar a {
+      width: 32px;
+      height: 32px;
+      border-bottom-color: var(--glass-edge);
+      background-color: var(--glass-bar-bg);
+      color: var(--global-text-color);
+      line-height: 32px;
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+    }
+    .travel-map .leaflet-bar a:hover {
+      background-color: var(--glass-card-hover-bg);
+      color: var(--global-theme-color);
+    }
+    .travel-map .travel-reset {
+      font-size: 15px;
+    }
+    .travel-map .leaflet-popup-content-wrapper {
+      border: 1px solid var(--glass-edge);
+      border-radius: 10px;
+      background: var(--glass-bar-bg);
+      color: var(--global-text-color);
+      box-shadow: var(--glass-shadow);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .travel-map .leaflet-popup-tip {
+      background: var(--glass-bar-bg);
+    }
+    .travel-map .leaflet-popup-content {
+      margin: 0.55rem 0.85rem;
+      font-size: 0.85rem;
+      line-height: 1.35;
+    }
+    .travel-map .leaflet-popup-content strong,
+    .travel-map .leaflet-popup-content span {
+      display: block;
+      color: inherit;
+    }
+    .travel-map .leaflet-popup-content span {
+      color: var(--global-text-color-light);
+      font-size: 0.75rem;
+    }
+    .travel-map .leaflet-container a.leaflet-popup-close-button {
+      color: var(--global-text-color-light);
+    }
+    .travel-map .leaflet-control-attribution {
+      background: var(--glass-bar-bg);
+      color: var(--global-text-color-light);
+      font-size: 10px;
+    }
+    .travel-map .leaflet-control-attribution a {
+      color: inherit;
+    }
+    .travel-places {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 1.5rem;
+    }
+    .travel-country {
+      display: grid;
+      grid-template-columns: 9rem minmax(0, 1fr);
+      gap: 0.5rem 1rem;
+      align-items: baseline;
+    }
+    .travel-country-name {
+      color: var(--global-text-color);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .travel-country-name span {
+      margin-left: 0.3rem;
+      color: var(--global-text-color-light);
+      font-weight: 400;
+    }
+    .travel-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .travel-chip {
+      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--glass-edge);
+      border-radius: 50rem;
+      background: var(--glass-card-bg);
+      color: var(--global-text-color-light);
+      font-size: 0.8rem;
+      line-height: 1.4;
+      cursor: pointer;
+      transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+    }
+    .travel-chip:hover,
+    .travel-chip.is-active {
+      border-color: rgba(var(--global-theme-color-rgb), 0.3);
+      background: rgba(var(--global-theme-color-rgb), 0.1);
+      color: var(--global-theme-color);
+    }
+    .travel-chip:focus-visible {
+      outline: 2px solid var(--global-theme-color);
+      outline-offset: 1px;
+    }
+    @media (max-width: 576px) {
+      .travel-map .map {
+        height: 340px;
+      }
+      .travel-country {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+      }
+    }
+  </style>
   <script>
     /* Render maps from GeoJSON embedded in non-displayed <script type="application/geo+json">
        tags. Using a script tag (instead of a visible code block) means the data is never
        rendered, so there is nothing to flash before the map appears. */
-    const renderGeoJsonMaps = () => {
-      document.querySelectorAll('script[type="application/geo+json"]').forEach((elem) => {
-          const jsonData = elem.textContent;
-          /* create leaflet node */
-          let mapElement = document.createElement('div');
-          mapElement.classList.add('map');
-          elem.after(mapElement);
+    (() => {
+      const root = document.documentElement;
+      const cssVar = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+      const worldUrl = '{{ site.third_party_libraries.world_atlas.url.json }}';
+      const worldIntegrity = '{{ site.third_party_libraries.world_atlas.integrity.json }}';
+      // Place-list country names that are spelled differently in Natural Earth
+      const countryAliases = { 'United States': 'United States of America' };
+      const escapeHtml = (text) =>
+        String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
+      const renderGeoJsonMaps = () => {
+        document.querySelectorAll('script[type="application/geo+json"]').forEach((elem) => {
+          const places = JSON.parse(elem.textContent).features.filter((f) => f.geometry && f.geometry.type === 'Point');
+          const countries = [...new Set(places.map((f) => f.properties.country).filter(Boolean))];
+
+          const wrapper = document.createElement('div');
+          wrapper.className = 'travel-map';
+          wrapper.innerHTML = `<div class="map"></div><div class="travel-places"></div>`;
+          elem.after(wrapper);
+          const mapElement = wrapper.querySelector('.map');
 
           const worldBounds = [
-            [-85, -180],
+            [-60, -180],
             [85, 180],
           ];
-          var map = L.map(mapElement, {
-            worldCopyJump: false,
+          const map = L.map(mapElement, {
             maxBounds: worldBounds,
             maxBoundsViscosity: 1.0,
+            maxZoom: 6,
+            scrollWheelZoom: false,
+            zoomSnap: 0.25,
+          });
+          map.attributionControl.setPrefix(false);
+          map.attributionControl.addAttribution('<a href="https://www.naturalearthdata.com/">Natural Earth</a>');
+
+          // Draw the world ourselves (no tile server): land in theme colors, visited countries tinted
+          const mapVar = (name) => getComputedStyle(wrapper).getPropertyValue(name).trim();
+          const visited = new Set(countries.map((c) => countryAliases[c] || c));
+          const countryStyle = (feature) => ({
+            stroke: true,
+            color: mapVar('--map-border'),
+            weight: 0.6,
+            fillColor: visited.has(feature.properties.name) ? mapVar('--map-visited') : mapVar('--map-land'),
+            fillOpacity: 1,
+          });
+          map.createPane('countries').style.zIndex = 350;
+          let countryLayer = null;
+          fetch(worldUrl, { integrity: worldIntegrity })
+            .then((response) => response.json())
+            .then((world) => {
+              const land = topojson.feature(world, world.objects.countries);
+              land.features = land.features.filter((f) => f.properties.name !== 'Antarctica');
+              // Rings that cross the 180° meridian (Russia, Fiji) would draw as stripes across
+              // the whole map; unwrap their longitudes so each ring stays continuous
+              const unwrapRing = (ring) => {
+                let shift = 0;
+                return ring.map(([lng, lat], i) => {
+                  const jump = i > 0 ? lng - ring[i - 1][0] : 0;
+                  if (jump > 180) shift -= 360;
+                  else if (jump < -180) shift += 360;
+                  return [lng + shift, lat];
+                });
+              };
+              land.features.forEach(({ geometry }) => {
+                if (geometry.type === 'Polygon') geometry.coordinates = geometry.coordinates.map(unwrapRing);
+                if (geometry.type === 'MultiPolygon') geometry.coordinates = geometry.coordinates.map((poly) => poly.map(unwrapRing));
+              });
+              countryLayer = L.geoJSON(land, { pane: 'countries', interactive: false, style: countryStyle }).addTo(map);
+            })
+            .catch(() => {});
+
+          const dotStyle = () => ({
+            radius: 5,
+            color: mapVar('--map-border') || '#fff',
+            weight: 2,
+            fillColor: cssVar('--global-theme-color'),
+            fillOpacity: 0.9,
+          });
+          const markers = places.map((f) => {
+            const [lng, lat] = f.geometry.coordinates;
+            const { name, country } = f.properties;
+            const marker = L.circleMarker([lat, lng], dotStyle()).bindPopup(
+              `<strong>${escapeHtml(name)}</strong>${country ? `<span>${escapeHtml(country)}</span>` : ''}`,
+              { closeButton: false }
+            );
+            marker.on('mouseover', () => marker.setRadius(7));
+            marker.on('mouseout', () => marker.setRadius(5));
+            return marker;
+          });
+          const group = L.featureGroup(markers).addTo(map);
+
+          // Never zoom out past the point where the world is narrower than the map (no grey bands)
+          const fitWorldZoom = () => Math.max(0, Math.ceil(Math.log2(mapElement.clientWidth / 256) * 4) / 4);
+          const showAll = () => map.fitBounds(group.getBounds(), { padding: [28, 28], maxZoom: 4 });
+          map.setMinZoom(fitWorldZoom());
+          showAll();
+          map.on('resize', () => map.setMinZoom(fitWorldZoom()));
+
+          // Don't hijack page scrolling: wheel-zoom only after the map is clicked
+          map.once('click', () => map.scrollWheelZoom.enable());
+
+          // "Show all" button under the zoom controls
+          const reset = L.DomUtil.create('a', 'travel-reset', map.zoomControl.getContainer());
+          reset.href = '#';
+          reset.title = 'Show all places';
+          reset.setAttribute('role', 'button');
+          reset.setAttribute('aria-label', 'Show all places');
+          reset.innerHTML = '&#x2922;';
+          L.DomEvent.on(reset, 'click', (event) => {
+            L.DomEvent.preventDefault(event);
+            map.closePopup();
+            showAll();
           });
 
-          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            minZoom: 1,
-            noWrap: true,
-            bounds: worldBounds,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-          }).addTo(map);
-          let geoJSON = L.geoJSON(JSON.parse(jsonData), {
-            onEachFeature: (feature, layer) => {
-              if (feature.properties && feature.properties.name) layer.bindPopup(feature.properties.name);
-            },
-          }).addTo(map);
-          map.fitBounds(geoJSON.getBounds());
+          // Place list grouped by country; each chip flies the map to that place
+          const list = wrapper.querySelector('.travel-places');
+          const groups = new Map();
+          places.forEach((f, i) => {
+            const key = f.properties.country || 'Other';
+            if (!groups.has(key)) groups.set(key, []);
+            groups.get(key).push(i);
+          });
+          let activeChip = null;
+          groups.forEach((indices, country) => {
+            const row = document.createElement('div');
+            row.className = 'travel-country';
+            row.innerHTML = `<div class="travel-country-name">${escapeHtml(country)}<span>${indices.length}</span></div><div class="travel-chips"></div>`;
+            const chips = row.querySelector('.travel-chips');
+            indices.forEach((i) => {
+              const chip = document.createElement('button');
+              chip.type = 'button';
+              chip.className = 'travel-chip';
+              chip.textContent = places[i].properties.name;
+              chip.addEventListener('click', () => {
+                if (activeChip) activeChip.classList.remove('is-active');
+                chip.classList.add('is-active');
+                activeChip = chip;
+                const rect = mapElement.getBoundingClientRect();
+                if (rect.top < 0 || rect.bottom > window.innerHeight) {
+                  mapElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                map.flyTo(markers[i].getLatLng(), 5, { duration: 0.8 });
+                map.once('moveend', () => markers[i].openPopup());
+              });
+              chips.appendChild(chip);
+            });
+            list.appendChild(row);
+          });
+
+          // Follow the site's light/dark toggle
+          new MutationObserver(() => {
+            if (countryLayer) countryLayer.setStyle(countryStyle);
+            markers.forEach((m) => m.setStyle(dotStyle()));
+          }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
         });
-    };
-    /* Render as soon as the DOM is parsed, rather than waiting for full page load */
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', renderGeoJsonMaps);
-    } else {
-      renderGeoJsonMaps();
-    }
+      };
+
+      /* Render as soon as the DOM is parsed, rather than waiting for full page load */
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderGeoJsonMaps);
+      } else {
+        renderGeoJsonMaps();
+      }
+    })();
   </script>
 {% endif %}

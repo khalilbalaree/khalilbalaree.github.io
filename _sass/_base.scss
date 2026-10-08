@@ -484,35 +484,70 @@ ul.task-list input[type="checkbox"] {
 }
 
 // Footer
-footer.fixed-bottom {
-  background-color: var(--global-footer-bg-color);
-  font-size: 0.75rem;
 
-  .container {
-    color: var(--global-footer-text-color);
-    padding-top: 9px;
-    padding-bottom: 8px;
-    text-align: center;
+// Keep the footer at the bottom of the window on short pages
+body.sticky-bottom-footer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  > .container[role="main"] {
+    flex: 1 0 auto;
+    width: 100%;
+  }
+}
+
+// A quiet centered sign-off: short divider, then one line
+.site-footer {
+  flex-shrink: 0;
+  margin-top: 4.5rem;
+  padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+  text-align: center;
+
+  .container::before {
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 1px;
+    margin: 0 auto 1.25rem;
+    background-color: var(--global-divider-color);
+  }
+
+  .footer-line {
+    margin: 0;
+    color: var(--global-text-color-light);
+    font-size: 0.8rem;
+    letter-spacing: 0.01em;
+  }
+
+  span {
+    color: inherit;
+  }
+
+  .footer-sep {
+    margin: 0 0.5rem;
+    opacity: 0.6;
   }
 
   a {
-    color: var(--global-footer-link-color);
+    color: var(--global-text-color-light);
+    text-decoration: none;
+    transition: color 0.2s ease;
 
     &:hover {
       color: var(--global-theme-color);
       text-decoration: none;
     }
   }
+
+  .footer-top {
+    white-space: nowrap;
+  }
 }
 
-footer.sticky-bottom {
-  border-top: 1px solid var(--global-divider-color);
-  padding-top: 40px;
-  padding-bottom: 40px;
-  font-size: 0.9rem;
-
-  .container {
-    text-align: center;
+@media (max-width: 576px) {
+  .site-footer {
+    margin-top: 3.5rem;
   }
 }
 
@@ -1393,20 +1428,22 @@ swiper-container {
 
   // Vertical timeline for education & experience
   .timeline {
+    @extend %flat-panel;
     --timeline-gutter: 2em;
     --timeline-line-left: 1em;
     --timeline-dot-size: 11px;
+    --timeline-pad-x: 1.25rem;
+    --timeline-pad-y: 1.1rem;
 
     position: relative;
-    padding-left: 0;
-    border-left: 0;
+    padding: var(--timeline-pad-y) var(--timeline-pad-x);
 
     &::before {
       content: "";
       position: absolute;
-      left: var(--timeline-line-left);
-      top: 0.45rem;
-      bottom: 0.45rem;
+      left: calc(var(--timeline-pad-x) + var(--timeline-line-left));
+      top: calc(var(--timeline-pad-y) + 0.45rem);
+      bottom: calc(var(--timeline-pad-y) + 0.45rem);
       width: 2px;
       transform: translateX(-50%);
       background-color: var(--global-divider-color);
@@ -1491,14 +1528,193 @@ swiper-container {
     }
   }
 
-  // Callout block for the "Beyond Research" section
-  .beyond {
-    margin-bottom: 0;
-    padding: 1.1rem 1.4rem;
-    border-radius: 8px;
-    border-left: 3px solid var(--global-theme-color);
-    background-color: var(--global-code-bg-color);
-    line-height: 1.6;
+  // "Beyond Research": a featured travel card with the other interests stacked beside it
+  .beyond-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: 1.75rem;
+    align-items: stretch;
+  }
+
+  .travel-card {
+    @extend %glass-card;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.75rem 0.75rem 0.85rem;
+    border-radius: 14px;
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    span {
+      color: inherit;
+    }
+
+    &:hover {
+      @extend %glass-card-hover;
+      transform: translateY(-2px);
+      text-decoration: none;
+
+      .card-arrow {
+        color: var(--global-theme-color);
+        opacity: 1;
+        transform: translateX(3px);
+      }
+
+      .travel-card-note {
+        color: var(--global-theme-color);
+      }
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-color: var(--global-theme-color);
+      box-shadow: 0 0 0 3px rgba(var(--global-theme-color-rgb), 0.2);
+    }
+
+    .card-arrow {
+      display: inline-block;
+      margin-left: 0.3rem;
+      color: var(--global-text-color-light);
+      font-size: 1rem;
+      line-height: 1;
+      opacity: 0.7;
+      transition:
+        transform 0.2s ease,
+        color 0.2s ease,
+        opacity 0.2s ease;
+    }
+  }
+
+  .travel-card-map {
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: var(--map-ocean);
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 360 / 170;
+    }
+  }
+
+  // Title and note share one line; font sizes follow the Education / Experience timeline
+  .travel-card-body {
+    padding: 0 0.35rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.2rem 1rem;
+  }
+
+  .travel-card-title {
+    color: var(--global-text-color) !important;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .travel-card-note {
+    color: var(--global-text-color-light) !important;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+  }
+
+  // A flat panel (no shadow, no hover) the same height as the travel card, so the two
+  // columns balance without the interests looking like links
+  .interest-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr;
+    margin: 0;
+    @extend %flat-panel;
+    padding: 0.25rem 1.25rem;
+    list-style: none;
+  }
+
+  .interest-item {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: 1fr 1fr;
+    column-gap: 0.9rem;
+    align-items: center;
+    padding: 0.6rem 0;
+
+    & + .interest-item {
+      border-top: 1px solid var(--glass-edge);
+    }
+
+    span {
+      color: inherit;
+    }
+
+    .interest-icon {
+      grid-row: span 2;
+      margin-bottom: 0;
+    }
+  }
+
+  .interest-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: rgba(var(--global-theme-color-rgb), 0.1);
+    color: var(--global-theme-color) !important;
+    font-size: 1.05rem;
+
+    i::before {
+      color: inherit;
+    }
+  }
+
+  .interest-name {
+    align-self: end;
+    color: var(--global-text-color) !important;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .interest-note {
+    align-self: start;
+    color: var(--global-text-color-light) !important;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  // Tablets: give the interests panel room so "Mountain biking & hiking" stays on one line
+  @media (max-width: 767px) {
+    .beyond-layout {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .timeline {
+      --timeline-pad-x: 1rem;
+      --timeline-pad-y: 0.95rem;
+    }
+
+    .beyond-layout {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .travel-card:hover {
+      transform: none;
+    }
   }
 }
 
@@ -1594,19 +1810,6 @@ swiper-container {
         em {
           color: inherit;
         }
-      }
-
-      .abbr abbr.badge {
-        width: auto;
-        max-width: 100%;
-        margin-bottom: 0;
-        padding: 0.32rem 0.55rem;
-        border-radius: 50rem;
-        letter-spacing: 0;
-        line-height: 1.1;
-        white-space: normal;
-        text-align: center;
-        box-shadow: none;
       }
 
       .links {
@@ -1779,28 +1982,6 @@ swiper-container {
     .meta-dot {
       opacity: 0.6;
     }
-
-    .blog-card-tags {
-      display: inline-flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    .blog-tag {
-      color: var(--global-text-color-light);
-      font-size: 0.8rem;
-      text-decoration: none;
-      transition: color 0.2s ease;
-
-      &::before {
-        content: "#";
-        opacity: 0.6;
-      }
-
-      &:hover {
-        color: var(--global-theme-color);
-      }
-    }
   }
 
   .blog-empty {
@@ -1851,16 +2032,6 @@ swiper-container {
 }
 
 @media (max-width: 576px) {
-  // Let the footer scroll with the page instead of covering content
-  body {
-    padding-bottom: 0;
-  }
-
-  footer.fixed-bottom {
-    position: static;
-    margin-top: 2.5rem;
-  }
-
   .post-header .post-title:not(.about-title) {
     font-size: 1.6rem;
   }
@@ -1908,5 +2079,327 @@ swiper-container {
   // Roughly square so the zoomed-out world fills the map without grey bands
   .map {
     height: 340px;
+  }
+}
+
+/*******************************************************************************
+ * Frosted glass
+ ******************************************************************************/
+
+// Faint ambient glow behind the page so translucent surfaces have something to frost
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(42rem 32rem at 8% -4%, var(--glass-glow-1), transparent 70%),
+    radial-gradient(36rem 28rem at 100% 28%, var(--glass-glow-2), transparent 70%),
+    radial-gradient(40rem 30rem at 30% 105%, var(--glass-glow-3), transparent 70%);
+}
+
+@mixin frosted($blur: 16px) {
+  -webkit-backdrop-filter: saturate(180%) blur($blur);
+  backdrop-filter: saturate(180%) blur($blur);
+}
+
+// Bars: content scrolls underneath, so these get a real backdrop blur
+.navbar {
+  opacity: 1;
+  background-color: var(--glass-bar-bg);
+  border-bottom-color: var(--glass-edge);
+  @include frosted(18px);
+}
+
+.navbar .dropdown-menu {
+  background-color: var(--glass-bar-bg);
+  border-color: var(--glass-edge);
+  box-shadow: var(--glass-shadow);
+  @include frosted(18px);
+}
+
+// Without backdrop-filter support, fall back to near-opaque bars
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .navbar,
+  .navbar .dropdown-menu {
+    background-color: var(--global-bg-color);
+  }
+}
+
+// Cards: translucent glass panels with a light top edge
+%glass-card {
+  border: 1px solid var(--glass-edge);
+  background-color: var(--glass-card-bg);
+  box-shadow:
+    inset 0 1px 0 var(--glass-border),
+    var(--glass-shadow);
+}
+
+// Non-clickable panels: same glass surface as cards, but flat (no shadow, no hover)
+%flat-panel {
+  border: 1px solid var(--glass-edge);
+  border-radius: 14px;
+  background-color: var(--glass-card-bg);
+}
+
+%glass-card-hover {
+  background-color: var(--glass-card-hover-bg);
+  border-color: rgba(var(--global-theme-color-rgb), 0.24);
+  box-shadow:
+    inset 0 1px 0 var(--glass-border),
+    0 10px 30px rgba(var(--global-theme-color-rgb), 0.1);
+}
+
+// Publication and blog cards share one shell: glass panel, lift on hover,
+// and an arrow in the corner hinting that the whole card is a link
+.publications ol.bibliography li,
+.blog-page .blog-card {
+  @extend %glass-card;
+  position: relative;
+  border-radius: 12px;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    @extend %glass-card-hover;
+    transform: translateY(-2px);
+
+    .card-arrow {
+      color: var(--global-theme-color);
+      transform: translate(2px, -2px);
+    }
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--global-theme-color);
+    box-shadow: 0 0 0 3px rgba(var(--global-theme-color-rgb), 0.2);
+  }
+
+  .card-arrow {
+    position: absolute;
+    top: 0.95rem;
+    right: 1.1rem;
+    color: var(--global-text-color-light);
+    font-size: 1rem;
+    line-height: 1;
+    opacity: 0.7;
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  &:hover .card-arrow {
+    opacity: 1;
+  }
+}
+
+.blog-page .blog-card:hover .card-arrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .publications ol.bibliography li,
+  .blog-page .blog-card {
+    &,
+    &:hover,
+    &:hover .card-arrow {
+      transform: none;
+    }
+  }
+}
+
+// Small "eyebrow" line above card titles
+.pub-meta,
+.blog-page .blog-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+  color: var(--global-text-color-light);
+  font-size: 0.78rem;
+  line-height: 1.4;
+
+  span {
+    color: inherit;
+  }
+}
+
+.venue-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.55rem;
+  border-radius: 50rem;
+  background-color: rgba(var(--global-theme-color-rgb), 0.1);
+  color: var(--global-theme-color) !important;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.publications ol.bibliography li {
+  margin-bottom: 1rem;
+  padding: 1.1rem 1.25rem;
+
+  .row {
+    align-items: center;
+  }
+
+  .abbr {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+  }
+
+  .preview {
+    height: 5.5rem;
+    padding: 0.3rem;
+    border: 1px solid var(--glass-edge);
+    border-radius: 8px;
+    // Figures are white-background images, so keep them on white in both themes
+    background-color: #fff;
+    box-shadow: none;
+    object-fit: contain;
+  }
+
+  .title {
+    margin-bottom: 0.3rem;
+    padding-right: 1.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .author {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .periodical {
+    margin-top: 0.15rem;
+    color: var(--global-text-color-light);
+    font-size: 0.85rem;
+    line-height: 1.45;
+
+    em {
+      color: inherit;
+      font-style: normal;
+    }
+
+  }
+
+  // No buttons on these entries; don't leave the empty row's spacing behind
+  .links:not(:has(a)) {
+    display: none;
+  }
+}
+
+.blog-page {
+  .blog-card {
+    padding: 1.2rem 1.4rem 1.15rem;
+
+    &:hover .blog-card-title {
+      color: var(--global-theme-color);
+    }
+  }
+
+  .blog-card-title {
+    margin-bottom: 0.4rem;
+    padding-right: 1.5rem;
+  }
+
+  .blog-card-desc {
+    margin-bottom: 0.75rem;
+    color: var(--global-text-color-light);
+    font-size: 0.95rem;
+  }
+
+  .blog-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .blog-tag {
+    padding: 0.1rem 0.5rem;
+    border-radius: 50rem;
+    background-color: var(--global-code-bg-color);
+    color: var(--global-text-color-light);
+    font-size: 0.72rem;
+    text-decoration: none;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+
+    &::before {
+      content: "#";
+      opacity: 0.6;
+    }
+
+    &:hover {
+      background-color: rgba(var(--global-theme-color-rgb), 0.12);
+      color: var(--global-theme-color);
+      text-decoration: none;
+    }
+  }
+}
+
+.post article > .social .contact-icons a {
+  border-color: var(--glass-edge);
+  background-color: var(--glass-card-bg);
+  box-shadow: inset 0 1px 0 var(--glass-border);
+
+  &:hover,
+  &.is-copied {
+    background-color: var(--glass-card-hover-bg);
+  }
+}
+
+// Phones: keep the cards glassy (the earlier mobile block flattens them)
+@media (max-width: 576px) {
+  .publications ol.bibliography li {
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--glass-edge);
+    background-color: var(--glass-card-bg);
+    box-shadow:
+      inset 0 1px 0 var(--glass-border),
+      var(--glass-shadow);
+
+    .title {
+      font-size: 1rem;
+    }
+
+    .author {
+      font-size: 0.9rem;
+    }
+  }
+
+  .blog-page .blog-card {
+    padding: 1rem 1.1rem;
+  }
+
+  .publications ol.bibliography li,
+  .blog-page .blog-card {
+    .card-arrow {
+      top: 0.9rem;
+      right: 0.9rem;
+    }
+  }
+
+  .navbar .navbar-collapse.show,
+  .navbar .navbar-collapse.collapsing {
+    padding-bottom: 0.5rem;
   }
 }

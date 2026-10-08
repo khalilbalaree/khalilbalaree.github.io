@@ -42,24 +42,27 @@ pagination:
         {% endif %}
 
         <article class="blog-card" data-post-url="{{ post_url }}" role="link" tabindex="0" aria-label="{{ post.title | escape }}">
+          <span class="card-arrow" aria-hidden="true">&rarr;</span>
+
+          <div class="blog-card-meta">
+            <span class="meta-date">{{ post.date | date: '%B %d, %Y' }}</span>
+            <span class="meta-dot">&middot;</span>
+            <span class="meta-read">{{ read_time }} min read</span>
+          </div>
+
           <h2 class="blog-card-title">{{ post.title }}</h2>
 
           {% if post.description %}
             <p class="blog-card-desc">{{ post.description }}</p>
           {% endif %}
 
-          <div class="blog-card-meta">
-            <span class="meta-date"><i class="fa-solid fa-calendar fa-sm"></i> {{ post.date | date: '%B %d, %Y' }}</span>
-            <span class="meta-dot">&middot;</span>
-            <span class="meta-read">{{ read_time }} min read</span>
-            {% if post.tags.size > 0 %}
-              <span class="blog-card-tags">
-                {% for tag in post.tags %}
-                  <a class="blog-tag" href="{{ tag | slugify | prepend: '/blog/tag/' | prepend: site.baseurl }}">{{ tag }}</a>
-                {% endfor %}
-              </span>
-            {% endif %}
-          </div>
+          {% if post.tags.size > 0 %}
+            <div class="blog-card-tags">
+              {% for tag in post.tags %}
+                <a class="blog-tag" href="{{ tag | slugify | prepend: '/blog/tag/' | prepend: site.baseurl }}">{{ tag }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
         </article>
       {% endfor %}
     </div>
