@@ -2108,7 +2108,9 @@ swiper-container {
   margin: 0.75rem auto 0;
   padding: 0.35rem 0;
   border: 1px solid var(--glass-edge);
-  border-radius: 999px;
+  // Just over half the 53px height: a full capsule when closed, and neatly rounded corners
+  // (not an oval) when the mobile menu expands
+  border-radius: 1.75rem;
   background-color: var(--glass-pill-bg);
   background-image: var(--glass-pill-sheen);
   // Bright top edge, like light catching the rim of the glass
@@ -2441,12 +2443,11 @@ swiper-container {
 
 // Collapsed navbar (Bootstrap's navbar-expand-sm switches at 576px)
 @media (max-width: 575.98px) {
-  // A full pill looks wrong once the menu expands
+  // Slightly tighter insets on phones; the capsule shape stays the same as on desktop
   .navbar.fixed-top {
     left: 0.75rem;
     right: 0.75rem;
     margin-top: 0.5rem;
-    border-radius: 18px;
 
     > .container {
       padding-left: 1rem;

@@ -3,20 +3,19 @@
        scroll up. Styles live here because navbar-hidden is only added at runtime, so PurgeCSS
        (run on deploy) would strip it from main.css. -->
   <style>
-    /* Showing: immediate and quick (a transition takes the timing of the state it moves to) */
+    /* Only transform is animated: it runs on the GPU, while animating the shadow under a
+       backdrop blur repaints every frame and makes the slide stutter on phones.
+       Showing: immediate, fast start that settles gently (a transition takes the timing of
+       the state it moves to). */
     #navbar {
-      transition:
-        transform 0.15s ease-out,
-        box-shadow 0.15s ease-out;
+      will-change: transform;
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
     }
     /* Hiding: waits, then slides away; scrolling up during the wait cancels it.
-       -150% clears the pill's top margin so no edge peeks out. */
+       -200% clears the pill's top margin and its shadow, so nothing peeks out. */
     #navbar.navbar-hidden {
-      transform: translateY(-150%);
-      box-shadow: none;
-      transition:
-        transform 0.3s ease-in 0.6s,
-        box-shadow 0.3s ease-in 0.6s;
+      transform: translateY(-200%);
+      transition: transform 0.3s ease-in 0.6s;
     }
     @media (prefers-reduced-motion: reduce) {
       #navbar,
