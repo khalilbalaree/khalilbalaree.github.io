@@ -1,0 +1,131 @@
+<!-- Styles for the site search in the about-page header (script: scripts/navbar_search.liquid).
+     Inline because the result rows are only created at runtime, so PurgeCSS (run on deploy)
+     would strip them from main.css. Loaded in <head> rather than next to the script at the
+     end of the header: otherwise Chrome can paint the bar before reaching them, and the
+     unsized search icon briefly fills the header as a dark blob. -->
+<style>
+  .navbar-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 13rem;
+  }
+  /* The icon is placed against this box, so it stays inside the field at every width */
+  .navbar-search-field {
+    position: relative;
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+    min-width: 0;
+    margin: 0;
+  }
+  .navbar-search-icon {
+    position: absolute;
+    left: 0.75rem;
+    width: 0.95rem;
+    height: 0.95rem;
+    color: var(--global-text-color-light);
+    pointer-events: none;
+  }
+  #navbar-search-input {
+    flex: 1 1 0;
+    min-width: 0;
+    width: 100%;
+    height: 2.25rem;
+    padding: 0 0.85rem 0 2.15rem;
+    /* 16px keeps iOS Safari from zooming in on focus */
+    font-size: 16px;
+    color: var(--global-text-color);
+    background-color: var(--glass-card-bg);
+    border: 1px solid var(--glass-edge);
+    border-radius: 999px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+  #navbar-search-input::placeholder {
+    color: var(--global-text-color-light);
+    opacity: 1;
+  }
+  #navbar-search-input::-webkit-search-cancel-button {
+    display: none;
+  }
+  #navbar-search-input:focus {
+    border-color: var(--global-theme-color);
+    box-shadow: 0 0 0 3px var(--glass-edge);
+  }
+  .navbar-search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 28rem;
+    max-width: 80vw;
+    max-height: 60vh;
+    margin-top: 0.85rem;
+    padding: 0.4rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background-color: var(--glass-bar-bg);
+    border: 1px solid var(--glass-edge);
+    border-radius: 1.25rem;
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    backdrop-filter: saturate(180%) blur(24px);
+    box-shadow: var(--glass-pill-shadow);
+    text-align: left;
+  }
+  .navbar-search-results[hidden] {
+    display: none;
+  }
+  .navbar.navbar-light .navbar-search-item {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.85rem;
+    color: var(--global-text-color);
+  }
+  .navbar-search-item.is-active {
+    background-color: var(--glass-card-bg);
+    box-shadow: inset 0 0 0 1px var(--glass-edge);
+  }
+  .navbar.navbar-light .navbar-search-item.is-active .navbar-search-title {
+    color: var(--global-theme-color);
+  }
+  .navbar-search-title,
+  .navbar-search-sub {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .navbar-search-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  .navbar-search-sub {
+    font-size: 0.8rem;
+    color: var(--global-text-color-light);
+  }
+  .navbar-search-empty {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+    color: var(--global-text-color-light);
+  }
+  @media (max-width: 575.98px) {
+    /* A bit narrower than the row (shrinks further on very small phones); the results still
+       span the whole pill */
+    .navbar-search {
+      position: static;
+      flex: 0 1 15rem;
+      width: auto;
+      min-width: 0;
+      margin-right: 0.75rem;
+    }
+    .navbar-search-results {
+      right: 0;
+      width: auto;
+      max-width: none;
+    }
+  }
+</style>
