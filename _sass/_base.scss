@@ -2114,6 +2114,11 @@ swiper-container {
   border: 1px solid var(--glass-edge);
   border-radius: 999px;
   box-shadow: var(--glass-shadow);
+
+  // Same height on every page: the home page has no brand link, only the menu toggle
+  > .container {
+    min-height: 2.5rem;
+  }
 }
 
 .navbar .dropdown-menu {
