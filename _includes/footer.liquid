@@ -17,3 +17,12 @@
     </p>
   </div>
 </footer>
+
+<script>
+  // "Back to top" scrolls smoothly instead of jumping (unless the visitor prefers reduced motion)
+  document.querySelector('.footer-top')?.addEventListener('click', (event) => {
+    event.preventDefault();
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+</script>
