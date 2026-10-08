@@ -2,7 +2,7 @@
 
 Source for my personal website: **https://khalilbalaree.github.io**
 
-I'm Zijun Wu, a PhD candidate at the University of Alberta working on natural language processing and machine learning. The site has my publications, a blog on my research, and a travel map.
+The site has my publications, a blog on my research, and a travel map.
 
 ## Structure
 
