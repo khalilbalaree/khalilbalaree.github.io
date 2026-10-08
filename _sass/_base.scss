@@ -2107,21 +2107,39 @@ swiper-container {
   max-width: $max-content-width + 12px;
   margin: 0.75rem auto 0;
   padding: 0.35rem 0;
-  border: 1px solid var(--glass-edge);
+  border: 1px solid transparent;
   // Just over half the 53px height: a full capsule when closed, and neatly rounded corners
   // (not an oval) when the mobile menu expands
   border-radius: 1.75rem;
-  background-color: var(--glass-pill-bg);
-  background-image: var(--glass-pill-sheen);
-  // Bright top edge, like light catching the rim of the glass
-  box-shadow:
-    inset 0 1px 0 var(--glass-border),
-    var(--glass-pill-shadow);
-  @include frosted(24px);
+  background: none;
+  box-shadow: var(--glass-pill-shadow);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+
+  // The glass lives on a layer behind the content rather than on the bar itself. Safari
+  // stutters when it slides (auto-hide) an element that carries a backdrop blur, and a blurred
+  // bar would also stop the search results panel inside it from blurring the page.
+  &::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    z-index: -1;
+    border: 1px solid var(--glass-edge);
+    border-radius: inherit;
+    background-color: var(--glass-pill-bg);
+    background-image: var(--glass-pill-sheen);
+    // Bright top edge, like light catching the rim of the glass
+    box-shadow: inset 0 1px 0 var(--glass-border);
+    @include frosted(24px);
+    pointer-events: none;
+  }
 
   // Open menu: denser tint so the links stay easy to read over the page
-  &:has(.navbar-collapse.show),
-  &:has(.navbar-collapse.collapsing) {
+  &:has(.navbar-collapse.show)::before,
+  &:has(.navbar-collapse.collapsing)::before {
     background-color: var(--glass-bar-bg);
   }
 
@@ -2158,7 +2176,7 @@ swiper-container {
 // Without backdrop-filter support, fall back to near-opaque bars
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .navbar,
-  .navbar.fixed-top,
+  .navbar.fixed-top::before,
   .navbar .dropdown-menu {
     background-color: var(--global-bg-color);
   }
@@ -2434,11 +2452,6 @@ swiper-container {
       right: 0.9rem;
     }
   }
-
-  .navbar .navbar-collapse.show,
-  .navbar .navbar-collapse.collapsing {
-    padding-bottom: 0.5rem;
-  }
 }
 
 // Collapsed navbar (Bootstrap's navbar-expand-sm switches at 576px)
@@ -2456,10 +2469,13 @@ swiper-container {
   }
 
   // Open menu: a hairline under the brand row, and every item ends on the same right edge
-  // as the menu button
-  .navbar .navbar-collapse {
-    border-top: 1px solid var(--glass-edge);
+  // as the menu button. The hairline and spacing sit on the list *inside* the collapsing
+  // element: Bootstrap animates only that element's height, so a border, margin or padding on
+  // the element itself would stay put while it opens or closes and then snap.
+  .navbar .navbar-collapse .navbar-nav {
     margin-top: 0.35rem;
+    padding-bottom: 0.5rem;
+    border-top: 1px solid var(--glass-edge);
 
     .nav-link {
       padding-right: 0;

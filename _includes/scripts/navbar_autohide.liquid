@@ -5,11 +5,11 @@
   <style>
     /* Only transform is animated: it runs on the GPU, while animating the shadow under a
        backdrop blur repaints every frame and makes the slide stutter on phones.
-       Showing: immediate, fast start that settles gently (a transition takes the timing of
-       the state it moves to). */
+       Showing: immediate and quick, easing out without a long creeping tail (a transition
+       takes the timing of the state it moves to). */
     #navbar {
       will-change: transform;
-      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     /* Hiding: waits, then slides away; scrolling up during the wait cancels it.
        -200% clears the pill's top margin and its shadow, so nothing peeks out. */

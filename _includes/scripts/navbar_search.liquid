@@ -67,11 +67,11 @@
     padding: 0.4rem;
     overflow-y: auto;
     overscroll-behavior: contain;
-    /* Solid, not frosted: a backdrop blur nested inside the blurred pill can't see the page
-       behind it, so the text underneath would show through */
-    background-color: var(--global-bg-color);
+    background-color: var(--glass-bar-bg);
     border: 1px solid var(--glass-edge);
     border-radius: 1.25rem;
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    backdrop-filter: saturate(180%) blur(24px);
     box-shadow: var(--glass-pill-shadow);
     text-align: left;
   }
