@@ -7,7 +7,7 @@ map: true
 description: Some of the places I've been lucky enough to visit.
 ---
 
-A map of places I've traveled to. Click a pin to see where it is.
+A map of places I've traveled to. Tap or click a pin to see where it is.
 
 <!--
   HOW TO ADD A PLACE:

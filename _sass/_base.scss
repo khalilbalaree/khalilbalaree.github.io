@@ -1784,7 +1784,6 @@ swiper-container {
       display: inline-flex;
       flex-wrap: wrap;
       gap: 0.4rem;
-      margin-left: 0.35rem;
     }
 
     .blog-tag {
@@ -1810,5 +1809,104 @@ swiper-container {
 
   .pagination {
     margin-top: 2rem;
+  }
+}
+
+/*******************************************************************************
+ * Titles & responsive polish
+ ******************************************************************************/
+
+// Post and page titles: bold, matching the blog index header. The about page's
+// name heading keeps its own mixed-weight style.
+.post-header .post-title:not(.about-title) {
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+// Page titles (publications, travel, ...) get the accent underline too
+.post-header .page-title {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding-bottom: 0.45rem;
+  text-transform: capitalize;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 2.5rem;
+    height: 3px;
+    border-radius: 3px;
+    background-color: var(--global-theme-color);
+  }
+}
+
+// Blog figures link to the full-size SVG so they can be zoomed on phones
+.post-content .fig-link img {
+  cursor: zoom-in;
+}
+
+@media (max-width: 576px) {
+  // Let the footer scroll with the page instead of covering content
+  body {
+    padding-bottom: 0;
+  }
+
+  footer.fixed-bottom {
+    position: static;
+    margin-top: 2.5rem;
+  }
+
+  .post-header .post-title:not(.about-title) {
+    font-size: 1.6rem;
+  }
+
+  .post-header .about-title {
+    font-size: 2.2rem;
+  }
+
+  .post article.post-content {
+    h2 {
+      font-size: 1.45rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+    }
+  }
+
+  // Stack every timeline date under its title so they line up consistently
+  .about-page .timeline .ti-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1rem;
+  }
+
+  // Comfortable touch targets
+  .post article > .social .contact-icons {
+    gap: 0.85rem;
+
+    a {
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+  }
+
+  .navbar .navbar-collapse .nav-link {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .navbar .navbar-collapse .toggle-container {
+    padding: 0.6rem 0;
+  }
+
+  // Roughly square so the zoomed-out world fills the map without grey bands
+  .map {
+    height: 340px;
   }
 }

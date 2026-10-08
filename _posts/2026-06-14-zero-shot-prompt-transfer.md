@@ -35,7 +35,7 @@ BERT-base and drop it straight into RoBERTa-base — same 768-dimensional width,
 copy is at least *possible* — and accuracy falls to about **0.1%**.
 
 <div class="text-center">
-  <img src="{{ '/assets/img/blog/fig1-cpt-problem.svg' | relative_url }}" alt="A soft prompt tuned in Model A's embedding space lands on a meaningless location when its vectors are copied directly into Model B's differently-shaped space." style="max-width:100%; height:auto;">
+  <a class="fig-link" href="{{ '/assets/img/blog/fig1-cpt-problem.svg' | relative_url }}" target="_blank" rel="noopener" title="Open full-size figure"><img src="{{ '/assets/img/blog/fig1-cpt-problem.svg' | relative_url }}" alt="A soft prompt tuned in Model A's embedding space lands on a meaningless location when its vectors are copied directly into Model B's differently-shaped space." style="max-width:100%; height:auto;"></a>
   <p class="post-description">The same coordinates mean different things on different maps, so a direct copy fails.</p>
 </div>
 
@@ -64,7 +64,7 @@ target's word embeddings fixes that. It barely matters when source and target ar
 same model, but it matters a lot when they differ.
 
 <div class="text-center">
-  <img src="{{ '/assets/img/blog/fig2-cpt-relative.svg' | relative_url }}" alt="The source prompt is encoded as similarities to shared anchor words, giving a model-agnostic relative representation, and a matching prompt is searched for in the target model." style="max-width:100%; height:auto;">
+  <a class="fig-link" href="{{ '/assets/img/blog/fig2-cpt-relative.svg' | relative_url }}" target="_blank" rel="noopener" title="Open full-size figure"><img src="{{ '/assets/img/blog/fig2-cpt-relative.svg' | relative_url }}" alt="The source prompt is encoded as similarities to shared anchor words, giving a model-agnostic relative representation, and a matching prompt is searched for in the target model." style="max-width:100%; height:auto;"></a>
   <p class="post-description">Encode the prompt as relations to shared words, then find the prompt in the new model with the same relations.</p>
 </div>
 
