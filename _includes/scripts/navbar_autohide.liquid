@@ -1,4 +1,4 @@
-{% if site.navbar_fixed %}
+{% if site.navbar_fixed and site.navbar_autohide %}
   <!-- Auto-hiding header: hides after a short delay while scrolling down, shows at once on
        scroll up. Styles live here because navbar-hidden is only added at runtime, so PurgeCSS
        (run on deploy) would strip it from main.css. -->

@@ -43,6 +43,7 @@ rss_icon: false
 # -----------------------------------------------------------------------------
 
 navbar_fixed: true
+navbar_autohide: false # hide the fixed navbar while scrolling down, show it on scroll up
 footer_fixed: false
 
 # Dimensions
